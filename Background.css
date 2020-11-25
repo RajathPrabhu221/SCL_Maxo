@@ -1,16 +1,27 @@
 body{
-	background-image: url(back.jpg);
+	background-image: url("back latest.jpg");
+	background: absolute;
+	background-repeat: no-repeat;
 	background-size: 1600px 800px;
 }
 
 .container{
 	width:1000px;
+	text-align: center;
+	margin: 130px 200px;
 }
 
-a{
-	font-size:30px;
-	text-align: center;
-	background: orange;
-	border-radius: 5px;
-	
+
+
+button{
+	border-radius: 40px;
+	box-shadow: 5px 5px black;
+	border:1px solid #020202;
+	padding: 25px 20px;
+	font-size: 25px;
+	margin: 60px;
+	height: 90px;
+	width: 100px;
+	background-color: #F9C621;
+	cursor: pointer;
 }
