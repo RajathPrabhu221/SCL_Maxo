@@ -1,0 +1,16 @@
+body{
+	background-image: url(back.jpg);
+	background-size: 1600px 800px;
+}
+
+.container{
+	width:1000px;
+}
+
+a{
+	font-size:30px;
+	text-align: center;
+	background: orange;
+	border-radius: 5px;
+	
+}
