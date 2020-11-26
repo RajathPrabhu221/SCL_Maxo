@@ -79,3 +79,14 @@ height: 5%;
 left: 13%;
 top: 80%;
 }
+
+#image{
+	position: absolute;
+	width: 436px;
+	height: 399px;
+	left: 550px;
+	top: 100px;
+
+	
+	border-radius: 199.5px;
+}
