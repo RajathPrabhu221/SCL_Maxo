@@ -1,3 +1,6 @@
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+
 @font-face {
   font-family: Poppins-Regular;
   src: url('../fonts/poppins/Poppins-Regular.ttf'); 
@@ -22,19 +25,44 @@
 [ RESTYLE TAG ]*/
 
 * {
-  margin: 0px; 
-  padding: 0px; 
-  box-sizing: border-box;
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
 }
 
 body, html {
-  height: 100%;
-  font-family: Poppins-Regular, sans-serif;
+	height: 100%;
+	font-family: Poppins-Regular, sans-serif;
 }
 
+/*---------------------------------------------*/
+a {
+	font-family: Poppins-Regular;
+	font-size: 14px;
+	line-height: 1.7;
+	color: #666666;
+	margin: 0px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
+a:focus {
+	outline: none !important;
+}
+
+a:hover {
+	text-decoration: none;
+  color: #57b846;
+}
+
+
+
+/*---------------------------------------------*/
 input {
-  outline: none;
-  border: none;
+	outline: none;
+	border: none;
 }
 
 textarea {
@@ -68,18 +96,21 @@ textarea:-ms-input-placeholder { color: #999999; }
 
 /*---------------------------------------------*/
 button {
-  outline: none !important;
-  border: none;
-  background: transparent;
+	outline: none !important;
+	border: none;
+	background: transparent;
 }
 
 button:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 iframe {
-  border: none !important;
+	border: none !important;
 }
+
+/*//////////////////////////////////////////////////////////////////
+[ login ]*/
 
 .limiter {
   width: 100%;
@@ -120,41 +151,15 @@ iframe {
   padding: 95px 130px 33px 95px;
   box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.31);
 }
-
-/*------------------------------------------------------------------
-[  ]*/
-.login100-pic {
-  width: 400px;
-}
-
-.login100-pic img {
-  padding-top: 90px;
-  max-width: 100%;
-}
-
-
 /*------------------------------------------------------------------
 [  ]*/
 .login100-form {
-  width: 290px;
-  padding-top: 90px;
+  width: 390px;
 }
-
-.login100-form-title {
-  font-family: Poppins-Bold;
-  font-size: 24px;
-  color: #f0f0f0;
-  line-height: 1.2;
-  text-align: center;
-
-  width: 100%;
-  display: block;
-  padding-bottom: 54px;
-}
-
 /*---------------------------------------------*/
 .wrap-input100 {
   position: relative;
+  left: 50%;
   width: 100%;
   z-index: 1;
   margin-bottom: 10px;
@@ -238,7 +243,6 @@ iframe {
   color: #57b846;
   padding-left: 28px;
 }
-
 .team{
   position: absolute;
   top: 50px;
@@ -267,8 +271,10 @@ iframe {
   line-height: 1.5;
   color: #fff;
   text-transform: uppercase;
-
+  
+  position:relative;
   width: 100%;
+  left: 50%;
   height: 50px;
   border-radius: 25px;
   background: #57b846;
@@ -291,132 +297,12 @@ iframe {
   background: #333333;
 }
 
-/*------------------------------------------------------------------
-[ Responsive ]*/
-
-
-
-@media (max-width: 992px) {
-  .wrap-login100 {
-    padding: 100px 90px 33px 85px;
-  }
-
-  .login100-pic {
-    width: 50%;
-  }
-
-  .login100-form {
-    width: 50%;
-  }
-}
-
-@media (max-width: 768px) {
-  .wrap-login100 {
-    padding: 177px 80px 33px 80px;
-  }  
-
-  .login100-pic {
-    position: absolute;
-    top: 20px;
-    width: 35%;
-    left: 33%;
-  }
-
-  .login100-form {
-    width: 100%;
-    padding-top: 30%;
-  }
-  .login100{
-    text-align: center;
-
-  }
-
-  .login100{
-    position: absolute;
-    left:30px;
-    display: inline-block;
-  }
-} 
-
-@media (max-width: 576px) {
-  .wrap-login100 {
-    padding: 100px 15px 33px 15px;
-  }
-
-  .login100{
-    position: absolute;
-    left:30%;
-  }
-  
-  .login100-form{
-    padding-bottom: 20px;
-  }
-}
-
-
-/*------------------------------------------------------------------
-[ Alert validate ]*/
-
-.validate-input {
+.icon-input{
   position: relative;
-}
-
-.alert-validate::before {
-  content: attr(data-validate);
-  position: absolute;
-  max-width: 70%;
-  background-color: white;
-  border: 1px solid #c80000;
-  border-radius: 13px;
-  padding: 4px 25px 4px 10px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 8px;
-  pointer-events: none;
-
-  font-family: Poppins-Medium;
-  color: #c80000;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: left;
-
-  visibility: hidden;
-  opacity: 0;
-
-  -webkit-transition: opacity 0.4s;
-  -o-transition: opacity 0.4s;
-  -moz-transition: opacity 0.4s;
-  transition: opacity 0.4s;
-}
-
-.alert-validate::after {
-  content: "\f06a";
-  font-family: FontAwesome;
-  display: block;
-  position: absolute;
-  color: #c80000;
-  font-size: 15px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
-  right: 13px;
-}
-
-.alert-validate:hover:before {
-  visibility: visible;
-  opacity: 1;
-}
-
-@media (max-width: 992px) {
-  .alert-validate::before {
-    visibility: visible;
-    opacity: 1;
-  }
+  left: 92%;
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 10px;
+  background: grey;
+  display: inline;
 }
