@@ -1,1 +1,1 @@
-# SCL_Maxo
+This is a project of Team Oratoria!!
