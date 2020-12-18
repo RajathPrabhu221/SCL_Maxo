@@ -1,3 +1,4 @@
+
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
@@ -25,44 +26,44 @@
 [ RESTYLE TAG ]*/
 
 * {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
+  margin: 0px; 
+  padding: 0px; 
+  box-sizing: border-box;
 }
 
 body, html {
-	height: 100%;
-	font-family: Poppins-Regular, sans-serif;
+  height: 100%;
+  font-family: Poppins-Regular, sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: Poppins-Regular;
-	font-size: 14px;
-	line-height: 1.7;
-	color: #666666;
-	margin: 0px;
-	transition: all 0.4s;
-	-webkit-transition: all 0.4s;
+  font-family: Poppins-Regular;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666666;
+  margin: 0px;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
 }
 
 a:focus {
-	outline: none !important;
+  outline: none !important;
 }
 
 a:hover {
-	text-decoration: none;
-  color: #57b846;
+  text-decoration: none;
+  color: #F8AE18;
 }
 
 
 
 /*---------------------------------------------*/
 input {
-	outline: none;
-	border: none;
+  outline: none;
+  border: none;
 }
 
 textarea {
@@ -96,18 +97,19 @@ textarea:-ms-input-placeholder { color: #999999; }
 
 /*---------------------------------------------*/
 button {
-	outline: none !important;
-	border: none;
-	background: transparent;
+  outline: none !important;
+  border: none;
+  background: transparent;
 }
 
 button:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 iframe {
-	border: none !important;
+  border: none !important;
 }
+
 
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
@@ -151,15 +153,44 @@ iframe {
   padding: 95px 130px 33px 95px;
   box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.31);
 }
+
+
+/*------------------------------------------------------------------
+[  ]*/
+.login100-pic {
+  width: 316px;
+  height: 400px;
+
+}
+
+.login100-pic:hover{
+  background:#347ebd ;
+  background: -webkit-linear-gradient(#347ebd, #36064e);
+  background: -o-linear-gradient(#347ebd, #36064e);
+  background: -moz-linear-gradient(#347ebd, #36064e);
+  background: linear-gradient(#347ebd, #36064e);
+  box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.31);
+  border-radius: 10px;
+  
+}
+.login100-pic img {
+  padding-top: 70px;
+  max-width: 80%;
+}
+
+
 /*------------------------------------------------------------------
 [  ]*/
 .login100-form {
-  width: 390px;
+  width: 290px;
+  padding-top: 50px;
 }
+
+
+
 /*---------------------------------------------*/
 .wrap-input100 {
   position: relative;
-  left: 50%;
   width: 100%;
   z-index: 1;
   margin-bottom: 10px;
@@ -213,7 +244,6 @@ iframe {
     opacity: 0;
   }
 }
-
 .symbol-input100 {
   font-size: 15px;
 
@@ -262,7 +292,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-top: 20px;
+  padding-top: 40px;
 }
 
 .login100-form-btn {
@@ -271,13 +301,11 @@ iframe {
   line-height: 1.5;
   color: #fff;
   text-transform: uppercase;
-  
-  position:relative;
+
   width: 100%;
-  left: 50%;
   height: 50px;
   border-radius: 25px;
-  background: #57b846;
+  background: #F8AE18;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
@@ -299,10 +327,103 @@ iframe {
 
 .icon-input{
   position: relative;
-  left: 92%;
-  width: 100%;
+  left: 40%;
   z-index: 1;
   margin-bottom: 10px;
-  background: grey;
-  display: inline;
+  display: inline-block;
 }
+
+.msg{
+  padding-top: 10px;
+  color: #fff;
+  position: relative;
+  top: 40px;
+  height: 50px;
+  left:1%
+}
+
+/*------------------------------------------------------------------
+[ Responsive ]*/
+@media (max-width: 992px) {
+  .wrap-login100 {
+    padding: 100px 90px 33px 85px;
+  }
+
+  .login100-pic {
+    width: 35%;
+  }
+
+  .login100-form {
+    width: 50%;
+  }
+  
+  .icon-input{
+    position: relative;
+    left: 42%;
+  }
+  .msg{
+    position: absolute;
+    top: 375px;
+    left: 22%;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrap-login100 {
+    padding: 177px 80px 33px 80px;
+  }  
+
+  .login100-pic {
+    display: none;
+  }
+
+  .login100-form {
+    width: 100%;
+  }
+  .login100{
+    text-align: center;
+
+  }
+
+  .login100{
+    position: absolute;
+    left:30px;
+    display: inline-block;
+  }
+
+  .icon-input{
+    position: relative;
+    left: 45%;    
+  }
+
+  .msg{
+    position: relative;
+    top:45px;
+    left: 22%;
+  }
+} 
+
+@media (max-width: 576px) {
+  .wrap-login100 {
+    padding: 100px 15px 33px 15px;
+  }
+
+  .login100{
+    position: absolute;
+    left:30%;
+  }
+  
+  .login100-form{
+    padding-bottom: 20px;
+  }
+
+  .icon-input{
+    position:relative;
+    left: 44%;
+  }
+  .msg{
+    position: relative;
+    left: 15%;
+  }
+}
+

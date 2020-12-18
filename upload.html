@@ -12,9 +12,10 @@
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="css/style4.css">
+
 </head>
 <body>
-    <div class="limiter">
+   <div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form">
@@ -35,17 +36,22 @@
 						</span>
 					</div>
 					<div class="icon-input">
-							<a href="#">
-							    <i class="fa fa-file-text-o fa-5x" aria-hidden="true"></i>
-							</a>
+							<input id="fileInput" type="file" style="display: none;">
+							<button value="choose file" onclick="document.getElementById('fileInput').click();">
+								<i class="fa fa-file-text-o fa-5x" aria-hidden="true"></i>
+				            </button>
+
 					</div>
-					
+					<span class="msg">Upload the document</span>
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
 						    Submit
 					    </button>
 					</div>
 				</form>
+				<div class="login100-pic js-tilt" data-tilt>
+					<center><img src="images/img-02.png" alt="IMG"></center>
+				</div>
 				<span class="team">
 						Ayusheer
 				</span>
@@ -53,5 +59,18 @@
 			</div>
 		</div>
 	</div>
+
+			</div>
+		</div>
+	</div>
+
+
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+
 </body>
 </html>
