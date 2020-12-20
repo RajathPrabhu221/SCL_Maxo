@@ -1,10 +1,17 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
-@app.route('/')
+
+
+@app.route('/', methods = ["POST","GET"])
 def home():
-    return render_template('index.html')
-
-
+    if request.method == "POST":
+        user_email = request.form["email"]
+        user_password = request.form["pass"]
+        #print("Ayusheer")
+        print(user_email, user_password)
+        return create()
+    else:
+        return render_template('index.html')
 
 @app.route('/signup')
 def signup():
