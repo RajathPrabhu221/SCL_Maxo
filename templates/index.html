@@ -29,7 +29,7 @@
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="static/images/img-01.png" alt="IMG">
 				</div>
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" id="submit-form" action="/" method="POST">
 					<span class="login100-form-title">
 						User Login
 					</span>
@@ -51,9 +51,9 @@
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn"><a href="{{url_for('create')}}">
+						<button type="submit" form="submit-form" class="login100-form-btn" value="Submit">
 							Login
-					    </a></button>
+					    </button>
 					</div>
 
 					<div class="text-center p-t-12">
@@ -98,7 +98,7 @@
 		})
 	</script>
 <!--===============================================================================================-->
-	<script src="static/js/main.js"></script>
+	<!-- <script src="static/js/main.js"></script> -->
 
 </body>
 </html>
