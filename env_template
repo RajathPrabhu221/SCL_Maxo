@@ -1,0 +1,5 @@
+# api keys
+TWILIO_ACCOUNT_SID='your twilio account sid'
+TWILIO_API_KEY_SID='your twilio api key sid'
+TWILIO_API_KEY_SECRET='your twilio api secret'
+TWILIO_AUTH_TOKEN ='your twilio api auth token'
