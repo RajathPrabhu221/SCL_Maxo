@@ -10,5 +10,5 @@ Languages Used:
 2) CSS 
 3) Python 
 4) Java Script 
-5) Sassy CSS (SCSS).
+5) Sassy CSS (SCSS) 
 
