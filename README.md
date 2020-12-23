@@ -3,9 +3,9 @@ First project of Team - Ayusheer
 This is a kind of WebSite, used to online classes.
 This platform is very much helpful especially in current situation, where almost every company conduct meetings through Virtually.
 
-Project Description
+## Project Description
 
-Languages Used:
+#### Languages Used:
 
 1) Python <a href="https://www.python.org/" target="_blank" ><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/python%20logo.png" width= 30></a>
 2) HTML <a href="https://html.com/"><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/HTML%20logo.png" width= 30></a>
