@@ -11,7 +11,7 @@ This is a kind of WebSite mainly used to conduct online classes. This platform i
 3) CSS  <a href="https://html.com/"><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/CSS%20logo.png" width= 30></a>
 4) Java Script <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/JS%20logo.png" width= 50></a>
 5) Sassy CSS (SCSS) <a href="https://html.com/"><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/SCSS%20logo.jpg" width= 50></a>
-6) Flask <a href="https://flask.palletsprojects.com/en/1.1.x/"><img src="https://github.com/RajathPrabhu221/SCL_Maxo/blob/main/static/images/Flask%20logo.jpg" width= 50></a>
+6) Flask <a href="https://flask.palletsprojects.com/en/1.1.x/"><img src="https://github.com/RajathPrabhu221/SCL_Maxo/blob/main/static/images/Flask%20logo.jpg" width= 35></a>
 
 #### On this WebApp you can:
 - Video chat with local people
