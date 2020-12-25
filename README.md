@@ -17,8 +17,8 @@ This is a kind of WebApp mainly used to conduct online classes. This platform is
 - Video chat with local people
 - Chat with any person around the world
 - Conduct an Effective Business Meeting. 
-- Online classes for the students.
--  You can upload documents for today's meet (for online class), so that the students attending the meet can have a look at the notes simultaneously, and hence student can understand the topics covered in the meet in much effective way.The Students can download those documents anytime until and till they are signed up their account in the WebApp.
+- Online classes for students.
+-  You can upload documents for today's meet (for an online class) so that the students attending the meet can have a look at the notes simultaneously, and hence students can understand the topics covered in the meet in a much effective way. Students can download those documents anytime until and till they are signed up for their account in the WebApp.
 
 
 #### 
