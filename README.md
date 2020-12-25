@@ -22,7 +22,7 @@ This is a kind of WebApp mainly used to conduct online classes. This platform is
 
 
 #### 
-- It's super easy! Install the free (Our App name) , click on "New Meeting," and invite up to (number of people) people to join you on video! Connect with anyone on Android based phones and tablets, other mobile devices, Windows.
+- It's super easy! Install the free (Our App name), click on "New Meeting," and invite up to (number of people) people to join you on video! Connect with anyone on Android-based phones and tablets, other mobile devices, Windows.
 - This app especially allows the group, teachers, leaders, students to join the conference without any restrictions. This will be very helpful for the students and teachers for teaching purposes.
 
 
