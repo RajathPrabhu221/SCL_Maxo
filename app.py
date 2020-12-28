@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Reads the key-value pair from .env file and adds them to environment variable
 load_dotenv()
@@ -31,17 +32,22 @@ class User(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column("name", db.String(100))
     email = db.Column("email", db.String(100))
-    password = db.Column("password", db.String(20))
+    password = db.Column("password", db.String(200))
 
     def __init__(self, name, email, password):
         self.name = name
         self.email = email
-        self.password = password
+        self.password = generate_password_hash(password)
 
 #---------------------- UTIL FUNCTIONS -----------------------
 # adds new user to the database
 def add_user(username, email, password):
     print(f"Username:{username}, Email:{email}, Password:{password}")
+    # checks if the user already exists before adding to the table
+    check_user = User.query.filter_by(email=email).all()
+    if check_user != None:
+        print("User exists")
+        return
     user = User(username, email, password)
     db.session.add(user)
     db.session.commit()
@@ -51,23 +57,22 @@ def add_user(username, email, password):
 def validate_user(user_email, user_password):
     print(f"Email:{user_email}, password:{user_password}")
     # same as "SELECT * FROM users WHERE email=user_email AND password=user_password;"
-    user = User.query.filter_by(email=user_email, password=user_password).all()
-    if len(user) != 0:
+    user = User.query.filter_by(email=user_email).first()
+    if user != None and check_password_hash(user.password, user_password):
         return True
     else:
         return False
 
 #----------------------- ROUTING --------------------------
 @app.route('/', methods = ['GET', 'POST'])
+@app.route('/home')
 def home():
     if request.method == 'POST':
-        user_email = request.form['email']
-        user_password = request.form['pass']
+        user_email = request.form.get('email')
+        user_password = request.form.get('pass')
         if validate_user(user_email, user_password):
-            print("Logged in")
-            return redirect(url_for('create'))
+            return render_template('home.html')
         else:
-            print("Invalid credentials")
             return render_template('index.html')
     else:
         return render_template('index.html')
@@ -75,17 +80,18 @@ def home():
 @app.route('/signup', methods = ['POST', 'GET'])    
 def signup():
     if request.method == 'POST':
-        user_name = request.form['username']
-        user_email = request.form['email']
-        user_password = request.form['pass']
+        user_name = request.form.get('username')
+        user_email = request.form.get('email')
+        user_password = request.form.get('pass')
         add_user(user_name, user_email, user_password)
-        return render_template("index.html")
+        return redirect(url_for('home'))
     else:
         return render_template("signup.html")
 
-@app.route('/create')
-def create():
-    return render_template('home.html')
+#dont give access to create page directly
+#@app.route('/create')
+#def create():
+    #return render_template('home.html')
 
 @app.route('/join')
 def join():
@@ -115,5 +121,3 @@ if __name__ == '__main__':
     db.session.commit()
     app.run(debug=True)
     
-
-
