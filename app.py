@@ -23,14 +23,14 @@ AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_INFO')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-SQLALCHEMY object
+# SQLALCHEMY object
 db = SQLAlchemy(app)
 
 # defining User database model
- class User(db.Model):
+class User(db.Model):
     __tablename__ = "users"
     _id = db.Column("id", db.Integer, primary_key=True)
-     name = db.Column("name", db.String(100))
+    name = db.Column("name", db.String(100))
     email = db.Column("email", db.String(100))
     password = db.Column("password", db.String(200))
 
@@ -53,7 +53,7 @@ def add_user(username, email, password):
     db.session.commit()
     return
 
-# # checks if the given user email and password are present in the database
+# checks if the given user email and password are present in the database
 def validate_user(user_email, user_password):
     print(f"Email:{user_email}, password:{user_password}")
     # same as "SELECT * FROM users WHERE email=user_email AND password=user_password;"
@@ -116,7 +116,7 @@ def api_token_gen():
 
 #-------------------------------Execution starts here------------------------------------------------
 if __name__ == '__main__':
-    creates the database with columns specified by the Users database model if it alredy does not exist
+    # creates the database with columns specified by the Users database model if it alredy does not exist
     db.create_all()
     db.session.commit()
     app.run(debug=True)
