@@ -1,0 +1,164 @@
+@font-face {
+    font-family: Poppins-Regular;
+    src: url('../static/fonts/poppins/Poppins-Regular.ttf'); 
+  }
+
+
+  * {
+    margin: 0px; 
+    padding: 0px; 
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+    font-family: Poppins-Regular, sans-serif;
+  }
+
+.navbar{
+  background-color: #294463;
+}
+
+.navbar-brand{
+  font-size:xx-large;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+}
+
+
+button {
+  outline: none !important;
+  border: none;
+  background: transparent;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+iframe {
+  border: none !important;
+}
+
+.login100-form-btn {
+  font-family: Montserrat-Bold;
+  font-size: 15px;
+  line-height: 1.5;
+  
+  text-transform: uppercase;
+
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  background: #57b846;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.31);
+}
+
+.login100-form-btn:hover {
+  background: #f80505;
+}
+
+#a1, #a2, #a3{
+  background-color: #22BDBE;
+  padding-left: 5px;
+  margin-left: 20px;
+  border-radius:4px ;
+  box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.31);
+}
+
+#a3{
+  margin-right: 20px;
+}
+
+#a1:hover, #a2:hover, #a3:hover{
+  background-color: #F9C621;
+  padding-left: 5px;
+  margin-left: 20px;
+  border-radius:4px ;
+  
+}
+
+#navicon:hover{
+  color:burlywood;
+}
+
+@media (max-width: 576px) {
+  #a1, #a2, #a3{
+    width: 50px;
+    padding-left: 10px;
+    margin-top: 5px;
+
+  }
+
+  #a3{
+    margin-bottom: 5px;
+  }
+}
+
+/* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#opendoc{
+  background-color:#57b846 ;
+  width: 40px;
+  margin: 5px;
+  height: 50px;
+}
+
+#doc{
+  color: #ffffff;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
