@@ -6,4 +6,6 @@ TWILIO_AUTH_TOKEN ='your twilio api auth token'
 
 #database credentials
 SECRET_KEY='your secret key'
-DATABASE_INFO='mysql://username:password@server/database'
+DATABASE_INFO='mysql://usernmame:password@server/database'
+
+PDF_UPLOAD='absolute path to the folder where the pdfs are to be saved'
