@@ -1,11 +1,12 @@
 #-----------------------Import------------------------------
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for
 from dotenv import load_dotenv
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, UserMixin, login_user, current_user
 
 # Reads the key-value pair from .env file and adds them to environment variable
 load_dotenv()
@@ -13,13 +14,17 @@ load_dotenv()
 #----------------------- GLOBALS ----------------------------
 app = Flask(__name__)
 
-# Twilio keys
+# Twilio keys -> used for generating the access tokens for users, that will be used during the meet
 ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
 API_KEY_SID = os.environ.get('TWILIO_API_KEY_SID')
 API_KEY_SECRET = os.environ.get('TWILIO_API_KEY_SECRET')
 AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 
-# Database credentials
+#login manager -> used for user authentication during login
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+# Database credentials -> used to do CRUD operations on the database
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_INFO')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -27,9 +32,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # defining User database model
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
-    _id = db.Column("id", db.Integer, primary_key=True)
+    id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column("name", db.String(100))
     email = db.Column("email", db.String(100))
     password = db.Column("password", db.String(200))
@@ -49,6 +54,7 @@ def add_user(username, email, password):
         print("User exists")
         return
     user = User(username, email, password)
+    # adds the user credentials to the database
     db.session.add(user)
     db.session.commit()
     return
@@ -56,42 +62,56 @@ def add_user(username, email, password):
 # checks if the given user email and password are present in the database
 def validate_user(user_email, user_password):
     print(f"Email:{user_email}, password:{user_password}")
-    # same as "SELECT * FROM users WHERE email=user_email AND password=user_password;"
+    # same as the sql query -> "SELECT * FROM users WHERE email=user_email LIMIT 1;"
     user = User.query.filter_by(email=user_email).first()
+    # checks if the exists an email corresponding to the given email in the database
+    # and if yes then checks if the password hash corresponding to that email
+    # matches that of the given password
     if user != None and check_password_hash(user.password, user_password):
-        return True
+        # returns True => validation success and also returns the user credentials
+        return True, user
     else:
-        return False
+        # returns False => validation failure
+        return False, user
 
+# gets the session id of the particular user with the id provided to the function
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 #----------------------- ROUTING --------------------------
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/home')
 def home():
     if request.method == 'POST':
+        # gets the email and password entered by the user in the form
         user_email = request.form.get('email')
         user_password = request.form.get('pass')
-        if validate_user(user_email, user_password):
+        # validates the password for the  given email
+        validation_result, user_credentials = validate_user(user_email, user_password)
+        if validation_result:
+            # logs in the user
+            login_user(user_credentials)
             return render_template('home.html')
         else:
             return render_template('index.html')
     else:
+        # returns the home page if the user is already logged in else returns the login page
+        if current_user.is_authenticated:
+            return render_template('home.html')
         return render_template('index.html')
 
 @app.route('/signup', methods = ['POST', 'GET'])    
 def signup():
     if request.method == 'POST':
+        # gets user credentials entered by the user in the form
         user_name = request.form.get('username')
         user_email = request.form.get('email')
         user_password = request.form.get('pass')
+        # adds user to the database
         add_user(user_name, user_email, user_password)
         return redirect(url_for('home'))
     else:
         return render_template("signup.html")
-
-#dont give access to create page directly
-#@app.route('/create')
-#def create():
-    #return render_template('home.html')
 
 @app.route('/join')
 def join():
@@ -116,7 +136,7 @@ def api_token_gen():
 
 #-------------------------------Execution starts here------------------------------------------------
 if __name__ == '__main__':
-    # creates the database with columns specified by the Users database model if it alredy does not exist
+    # creates the database with columns specified by the Users database model if it already does not exist
     db.create_all()
     db.session.commit()
     app.run(debug=True)
