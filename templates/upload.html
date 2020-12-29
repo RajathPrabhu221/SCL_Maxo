@@ -18,7 +18,7 @@
    <div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form">
+				<form class="login100-form validate-form" method="POST" action="/upload" enctype="multipart/form-data">
 
 					<div class="wrap-input100">
 						<input class="input100" type="text" name="subject" placeholder="Subject" required="This section is required">
@@ -36,7 +36,7 @@
 						</span>
 					</div>
 					<div class="icon-input">
-							<input id="fileInput" type="file" style="display: none;">
+							<input id="fileInput" type="file" name="pdf_file" style="display: none;" required="This section is required">
 							<button value="choose file" onclick="document.getElementById('fileInput').click();">
 								<i class="fa fa-file-text-o fa-5x" aria-hidden="true"></i>
 				            </button>
@@ -44,7 +44,7 @@
 					</div>
 					<span class="msg">Upload the document</span>
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
+						<button type="submit" class="login100-form-btn">
 						    Submit
 					    </button>
 					</div>

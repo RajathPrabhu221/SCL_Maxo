@@ -6,6 +6,7 @@ from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from flask_login import LoginManager, UserMixin, login_user, current_user
 
 # Reads the key-value pair from .env file and adds them to environment variable
@@ -30,6 +31,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_INFO')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # SQLALCHEMY object
 db = SQLAlchemy(app)
+
+# sets the path to the folder where the pdfs are to be saved
+app.config['PDF_FOLDER_PATH'] = os.environ.get('PDF_UPLOAD')
 
 # defining User database model
 class User(db.Model, UserMixin):
@@ -120,6 +124,14 @@ def join():
 @app.route('/upload', methods = ['GET', 'POST'])
 def upload():
     if request.method == 'POST':
+        # gets the subject name from the form
+        subject_name = request.form.get('topic')
+        # gets the pdf file uploaded in the form
+        pdf_file = request.files.get('pdf_file')
+        # saves the pdf file in the set folder
+        pdf_file.save(os.path.join(app.config['PDF_FOLDER_PATH'], secure_filename(pdf_file.filename)))
+        print(request.files)
+        print('[PDF SAVED]')
         return render_template('home.html')
     else:
         return render_template('upload.html')
