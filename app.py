@@ -117,6 +117,13 @@ def signup():
 def join():
     return render_template('joinlink.html')
 
+@app.route('/upload', methods = ['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        return render_template('home.html')
+    else:
+        return render_template('upload.html')
+
 # generating api key for a user which is used to connect to a room 
 # If a room already exists then using this token enables a person to join the room if it doesnot exist then a  room is created
 @app.route('/gen_token', methods = ['POST'])
