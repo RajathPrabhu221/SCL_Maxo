@@ -5,13 +5,13 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css')}}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='vendor/animate/animate.css')}}">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="css/style4.css">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style4.css')}}">
 
 </head>
 <body>
@@ -50,7 +50,7 @@
 					</div>
 				</form>
 				<div class="login100-pic js-tilt" data-tilt>
-					<center><img src="images/img-02.png" alt="IMG"></center>
+					<center><img src="{{url_for('static', filename='images/img-01.png')}}" alt="IMG"></center>
 				</div>
 				<span class="team">
 						Ayusheer
@@ -66,11 +66,11 @@
 
 
 <!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="{{url_for('static', filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
+	<script src="{{url_for('static', filename='vendor/select2/select2.min.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<script src="{{url_for('static', filename='vendor/tilt/tilt.jquery.min.js')}}"></script>
 
 </body>
 </html>
