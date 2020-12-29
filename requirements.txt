@@ -2,3 +2,4 @@ twilio == 6.50.0
 python-dotenv
 flask-sqlalchemy == 2.4.4
 mysqlclient == 2.0.2
+flask-login == 0.5.0
