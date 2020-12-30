@@ -48,8 +48,22 @@ class User(db.Model, UserMixin):
         self.email = email
         self.password = generate_password_hash(password)
 
+class Meet(db.Model):
+    __tablename__ = "meet"
+    id = db.Column("id", db.Integer, primary_key=True)
+    name = db.Column("name", db.String(100))
+    subject = db.Column("subject", db.String(100))
+    topic = db.Column("topic", db.String(100))
+    pdf_link = db.Column("pdf_link", db.String(200))
+
+    def __init__(self, name, subject, topic, pdf_link):
+        self.name = name
+        self.subject = subject
+        self.topic = topic
+        self.pdf_link = pdf_link
+
 #---------------------- UTIL FUNCTIONS -----------------------
-# adds new user to the database
+# adds new user to the User database
 def add_user(username, email, password):
     print(f"Username:{username}, Email:{email}, Password:{password}")
     # checks if the user already exists before adding to the table
@@ -57,9 +71,23 @@ def add_user(username, email, password):
     if check_user != None:
         print("User exists")
         return
+    # creates a user object with the given credentials
     user = User(username, email, password)
     # adds the user credentials to the database
     db.session.add(user)
+    db.session.commit()
+    return
+
+# adds the new meeting to the Meet database
+def add_meeting(meet_name, meet_subject, meet_topic, meet_pdf_link):
+    # checks if the meeting name already exists
+    check_meet = Meet.query.filter_by(name=meet_name).all()
+    if len(check_meet) != 0:
+        print("Meeting already exists")
+        return
+    # creates a meet object and adds it to the database
+    meet = Meet(meet_name, meet_subject, meet_topic, meet_pdf_link)
+    db.session.add(meet)
     db.session.commit()
     return
 
@@ -117,24 +145,43 @@ def signup():
     else:
         return render_template("signup.html")
 
-@app.route('/join')
+@app.route('/join', methods = ['GET', 'POST'])
 def join():
-    return render_template('joinlink.html')
+    if request.method == 'POST':
+        meet_name = request.form.get('link')
+        return redirect(url_for('meet', meet_name=meet_name))
+    else:
+        return render_template('joinlink.html')
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def upload():
     if request.method == 'POST':
+        # gets the meeting name from the form
+        meet_name = request.form.get('meet_name')
         # gets the subject name from the form
-        subject_name = request.form.get('topic')
+        subject_name = request.form.get('subject')
+        # gets the topic name from the form
+        topic_name = request.form.get('topic')
         # gets the pdf file uploaded in the form
         pdf_file = request.files.get('pdf_file')
-        # saves the pdf file in the set folder
+        # saves the pdf file in the set folder with path as above
         pdf_file.save(os.path.join(app.config['PDF_FOLDER_PATH'], secure_filename(pdf_file.filename)))
         print(request.files)
         print('[PDF SAVED]')
-        return render_template('home.html')
+        # gets the path of the pdf file where it will be saved 
+        path_of_pdf = "uploads/" + secure_filename(pdf_file.filename)
+        # adds the meeting details to the meet database
+        add_meeting(meet_name, subject_name, topic_name, path_of_pdf)
+        return redirect(url_for('meet', meet_name=meet_name))
     else:
         return render_template('upload.html')
+
+@app.route('/meet/<meet_name>')
+def meet(meet_name):
+    # gets the link to the pdf corresponding to the provided meet name
+    meet = Meet.query.filter_by(name=meet_name).first()
+    # rendering the html along with the pdf link
+    return render_template('meet.html', link_to_pdf = meet.pdf_link)
 
 # generating api key for a user which is used to connect to a room 
 # If a room already exists then using this token enables a person to join the room if it doesnot exist then a  room is created
