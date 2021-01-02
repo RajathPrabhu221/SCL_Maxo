@@ -106,10 +106,20 @@ def validate_user(user_email, user_password):
         # returns False => validation failure
         return False, user
 
+# checks whether the extension of a file is a valid extension  
+def validate_extension(file_name):
+    valid_extensions = ['pdf','ppt']
+    # splits the file name at '.'
+    file_extension = file_name.split('.')
+    # returns true if its a valid extension eles return false
+    if file_extension[-1] in valid_extensions and len(file_extension) < 3:
+        return True
+    return False
+
 # gets the session id of the particular user with the id provided to the function
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return User.query.get(int(user_id)) 
 #----------------------- ROUTING --------------------------
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/home')
