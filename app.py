@@ -1,13 +1,14 @@
 #-----------------------Import------------------------------
 import os
-from flask import Flask, render_template, request, session, redirect, url_for
+import datetime
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 from dotenv import load_dotenv
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from flask_login import LoginManager, UserMixin, login_user, current_user
+from flask_login import LoginManager, UserMixin, login_user, current_user, login_required
 
 # Reads the key-value pair from .env file and adds them to environment variable
 load_dotenv()
@@ -24,6 +25,9 @@ AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 #login manager -> used for user authentication during login
 login_manager = LoginManager()
 login_manager.init_app(app)
+# sets the login page render function as the function -> index 
+# to which a page is redirected if the user has not logged in and the page requires login
+login_manager.login_view = 'index'
 
 # Database credentials -> used to do CRUD operations on the database
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -67,16 +71,18 @@ class Meet(db.Model):
 def add_user(username, email, password):
     print(f"Username:{username}, Email:{email}, Password:{password}")
     # checks if the user already exists before adding to the table
-    check_user = User.query.filter_by(email=email).all()
+    check_user = User.query.filter_by(email=email).first()
+    print(check_user)
     if check_user != None:
-        print("User exists")
-        return
+        return False
+    time = datetime.datetime.now()
+    print(f"127.0.0.1 - - [{time.day}/{time.month}/{time.year} {time.hour}:{time.minute}:{time.second}] ADDED USER:{username} EMAIL:{email}")
     # creates a user object with the given credentials
     user = User(username, email, password)
     # adds the user credentials to the database
     db.session.add(user)
     db.session.commit()
-    return
+    return True
 
 # adds the new meeting to the Meet database
 def add_meeting(meet_name, meet_subject, meet_topic, meet_pdf_link):
@@ -93,7 +99,6 @@ def add_meeting(meet_name, meet_subject, meet_topic, meet_pdf_link):
 
 # checks if the given user email and password are present in the database
 def validate_user(user_email, user_password):
-    print(f"Email:{user_email}, password:{user_password}")
     # same as the sql query -> "SELECT * FROM users WHERE email=user_email LIMIT 1;"
     user = User.query.filter_by(email=user_email).first()
     # checks if the exists an email corresponding to the given email in the database
@@ -122,8 +127,7 @@ def load_user(user_id):
     return User.query.get(int(user_id)) 
 #----------------------- ROUTING --------------------------
 @app.route('/', methods = ['GET', 'POST'])
-@app.route('/home')
-def home():
+def index():
     if request.method == 'POST':
         # gets the email and password entered by the user in the form
         user_email = request.form.get('email')
@@ -131,10 +135,13 @@ def home():
         # validates the password for the  given email
         validation_result, user_credentials = validate_user(user_email, user_password)
         if validation_result:
+            time = datetime.datetime.now()
+            print(f"127.0.0.1 - - [{time.day}/{time.month}/{time.year} {time.hour}:{time.minute}:{time.second}] LOGGEDIN:{user_email}")
             # logs in the user
             login_user(user_credentials)
-            return render_template('home.html')
+            return redirect(url_for('home'))
         else:
+            flash('Invalid user email or password', category='danger')
             return render_template('index.html')
     else:
         # returns the home page if the user is already logged in else returns the login page
@@ -150,20 +157,33 @@ def signup():
         user_email = request.form.get('email')
         user_password = request.form.get('pass')
         # adds user to the database
-        add_user(user_name, user_email, user_password)
-        return redirect(url_for('home'))
+        if add_user(user_name, user_email, user_password):
+            flash('Account created please login', category='success')
+            return redirect(url_for('index'))
+        else:
+            flash('You already have an account please login')
+            return render_template('signup.html') 
     else:
-        return render_template("signup.html")
+        return render_template('signup.html')
+
+@app.route('/home')
+@login_required
+def home():
+    return render_template('home.html')
 
 @app.route('/join', methods = ['GET', 'POST'])
+@login_required
 def join():
     if request.method == 'POST':
         meet_name = request.form.get('link')
+        time = datetime.datetime.now()
+        print(f"127.0.0.1 - - [{time.day:02d}/{time.strftime('%b')}/{time.year} {time.hour:02d}:{time.minute:02d}:{time.second:02d}] LOGGEDIN:{current_user.name}")
         return redirect(url_for('meet', meet_name=meet_name))
     else:
         return render_template('joinlink.html')
 
 @app.route('/upload', methods = ['GET', 'POST'])
+@login_required
 def upload():
     if request.method == 'POST':
         # gets the meeting name from the form
@@ -176,17 +196,19 @@ def upload():
         pdf_file = request.files.get('pdf_file')
         # saves the pdf file in the set folder with path as above
         pdf_file.save(os.path.join(app.config['PDF_FOLDER_PATH'], secure_filename(pdf_file.filename)))
-        print(request.files)
-        print('[PDF SAVED]')
         # gets the path of the pdf file where it will be saved 
         path_of_pdf = "uploads/" + secure_filename(pdf_file.filename)
+        time = datetime.datetime.now()
+        print(f"127.0.0.1 - - [{time.day}/{time.month}/{time.year} {time.hour}:{time.minute}:{time.second}] PDF SAVED:{path_of_pdf}")
         # adds the meeting details to the meet database
         add_meeting(meet_name, subject_name, topic_name, path_of_pdf)
+        print(f"127.0.0.1 - - [{time.day}/{time.month}/{time.year} {time.hour}:{time.minute}:{time.second}] NEW MEETING CREATED MEET NAME:{meet_name} SUBJECT:{subject_name} TOPIC:{topic_name}")
         return redirect(url_for('meet', meet_name=meet_name))
     else:
         return render_template('upload.html')
 
 @app.route('/meet/<meet_name>')
+@login_required
 def meet(meet_name):
     # gets the link to the pdf corresponding to the provided meet name
     meet = Meet.query.filter_by(name=meet_name).first()
@@ -196,6 +218,7 @@ def meet(meet_name):
 # generating api key for a user which is used to connect to a room 
 # If a room already exists then using this token enables a person to join the room if it doesnot exist then a  room is created
 @app.route('/gen_token', methods = ['POST'])
+@login_required
 def api_token_gen():
     #get the username and roomname from the frontend
     user_name = request.get_json(force = True).get('username')
@@ -207,7 +230,8 @@ def api_token_gen():
     token.add_grant(grant)
     # Serialize the token as a JWT(json web token) i.e converts token to json which can be returned to the frontend
     jwt = token.to_jwt().decode()
-    print(f"Created token for {user_name}, room:{room_name} ",jwt)
+    time = datetime.datetime.now()
+    print(f"127.0.0.1 - - [{time.day}/{time.month}/{time.year} {time.hour}:{time.minute}:{time.second}] TOKEN GENERATED USER:{user_name} ROOM:{room_name}")    
     return {'token':jwt}
 
 #-------------------------------Execution starts here------------------------------------------------
