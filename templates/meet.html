@@ -4,8 +4,9 @@
     <title>Meet</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css')}}">
 <!--===============================================================================================-->
@@ -13,6 +14,8 @@
 <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style5.css')}}">
+<!--===============================================================================================-->
+	<script src="https://kit.fontawesome.com/dd768487f5.js" crossorigin="anonymous"></script>
 <!--===============================================================================================-->
 </head>
 <body>
@@ -22,10 +25,10 @@
     	<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu" style="color: #fff;"><i class="fa fa-bars fa-2x" id="navicon" aria-hidden="true"></i></button>
     	<div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
     	    <ul class="navbar-nav" >
-    		    <li class="nav-item" id="a1"><a href="#" class="nav-link"><i class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a></li>
-				<li class="nav-item" id="a2"><a href="#" class="nav-link"><i class="fa fa-microphone fa-2x" aria-hidden="true"></i></a></li>
+    		    <li class="nav-item" id="a1"><a href="#" id="video-icon" class="nav-link"><i  class="fa fa-video-camera fa-2x" aria-hidden="true"></i></a></li>
+				<li class="nav-item" id="a2"><a href="#" id="audio-icon" class="nav-link"><i class="fa fa-microphone fa-2x" aria-hidden="true"></i></a></li>
 				<li class="nav-item" id="a3"><a href="#" class="nav-link"><i class="fa fa-hand-paper-o fa-2x" aria-hidden="true"></i></a></li>
-				<li class="nav-item"><button class="login100-form-btn"><a href="#" class="nav-link" style="color: #fff;">Leave Meeting</a></button></li>
+				<li id="connection" class="nav-item"><button class="login100-form-btn"><a href="#" class="nav-link" style="color: #fff;">Leave Meeting</a></button></li>
     	    </ul>
     	</div>
 	</nav>
@@ -33,13 +36,14 @@
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		<embed class="embed-responsive" src="{{url_for('static', filename=link_to_pdf)}}" type="application/pdf" height="90%" width="80%">
 	</div>
-
 	  <!-- Use any element to open the sidenav -->
 	<span onclick="openNav()">
 		<button id="opendoc"><i class="fa fa-file-text-o fa-2x" aria-hidden="true" id="doc"></i></button>
 	</span>
 	
-
+	<div id="meet-wrapper">
+		
+	</div>
 	<script type="text/javascript">
 		function openNav() {
 		  document.getElementById("mySidenav").style.width = "40%";
@@ -54,8 +58,8 @@
 		  document.body.style.backgroundColor = "white";
 		}
 	</script>
-
-	
+<!--===============================================================================================-->
+	<script src="//media.twiliocdn.com/sdk/js/video/releases/2.8.0/twilio-video.min.js"></script>
 <!--===============================================================================================-->	
 	<script src="{{url_for('static', filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
 <!--===============================================================================================-->
@@ -65,7 +69,8 @@
 	<script src="{{url_for('static', filename='vendor/select2/select2.min.js')}}"></script>
 <!--===============================================================================================-->
 	<script src="{{url_for('static', filename='vendor/tilt/tilt.jquery.min.js')}}"></script>
-	<script >
+	<script src="{{url_for('static', filename='js/video.js')}}"></script>
+	<script>
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
