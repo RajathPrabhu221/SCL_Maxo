@@ -1,7 +1,7 @@
 const connect_room_btn = document.getElementById('connection');
-const video_element = document.getElementById('video');
-const audio_btn = document.getElementById('audio_btn');
-const video_btn = document.getElementById('video_btn');
+const video_element = document.getElementById('meet-wrapper');
+const audio_btn = document.getElementById('a2');
+const video_btn = document.getElementById('a1');
 var username = "Mr. Robot";
 const roomname = "Daily-Standup";
 var video_connected = false;
@@ -136,14 +136,14 @@ function audio_handler(){
         room.localParticipant.audioTracks.forEach(publication => {
             publication.track.disable();
       });
-        audio_btn.innerHTML = "connect audio";
+        document.getElementById('audio-icon').innerHTML = '<i class="fas fa-microphone-slash fa-2x"></i>';
     }
     else
     {
         room.localParticipant.audioTracks.forEach(publication => {
             publication.track.enable();
           });
-        audio_btn.innerHTML = "disconnect audio";
+          document.getElementById('audio-icon').innerHTML = '<i class="fa fa-microphone fa-2x" aria-hidden="true"></i>';
     }
     audio_connected = !audio_connected;
 }
@@ -155,14 +155,14 @@ function video_handler(){
         room.localParticipant.videoTracks.forEach(publication => {
             publication.track.disable();
         });
-      video_btn.innerHTML = "connect video";
+      document.getElementById('video-icon').innerHTML='<i class="fas fa-video-slash fa-2x"></i>';
     }
     else
     {
         room.localParticipant.videoTracks.forEach(publication => {
             publication.track.enable();
         });
-        video_btn.innerHTML = "disconnect video";
+       document.getElementById('video-icon').innerHTML='<i  class="fa fa-video-camera fa-2x" aria-hidden="true"></i>';   
     }
     video_connected = !video_connected;
 }
