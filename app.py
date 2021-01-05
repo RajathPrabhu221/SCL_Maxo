@@ -76,7 +76,7 @@ def add_user(username, email, password):
     if check_user != None:
         return False
     time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day}/{time.month}/{time.year} {time.hour}:{time.minute}:{time.second}] ADDED USER:{username} EMAIL:{email}")
+    print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] ADDED USER:{username} EMAIL:{email}")
     # creates a user object with the given credentials
     user = User(username, email, password)
     # adds the user credentials to the database
@@ -136,7 +136,7 @@ def index():
         validation_result, user_credentials = validate_user(user_email, user_password)
         if validation_result:
             time = datetime.datetime.now()
-            print(f"127.0.0.1 - - [{time.day}/{time.month}/{time.year} {time.hour}:{time.minute}:{time.second}] LOGGEDIN:{user_email}")
+            print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] LOGGEDIN:{user_email}")
             # logs in the user
             login_user(user_credentials)
             return redirect(url_for('home'))
@@ -198,11 +198,10 @@ def upload():
         pdf_file.save(os.path.join(app.config['PDF_FOLDER_PATH'], secure_filename(pdf_file.filename)))
         # gets the path of the pdf file where it will be saved 
         path_of_pdf = "uploads/" + secure_filename(pdf_file.filename)
-        time = datetime.datetime.now()
-        print(f"127.0.0.1 - - [{time.day}/{time.month}/{time.year} {time.hour}:{time.minute}:{time.second}] PDF SAVED:{path_of_pdf}")
         # adds the meeting details to the meet database
         add_meeting(meet_name, subject_name, topic_name, path_of_pdf)
-        print(f"127.0.0.1 - - [{time.day}/{time.month}/{time.year} {time.hour}:{time.minute}:{time.second}] NEW MEETING CREATED MEET NAME:{meet_name} SUBJECT:{subject_name} TOPIC:{topic_name}")
+        time = datetime.datetime.now()
+        print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] NEW MEETING CREATED MEET NAME:{meet_name} SUBJECT:{subject_name} TOPIC:{topic_name}")
         return redirect(url_for('meet', meet_name=meet_name))
     else:
         return render_template('upload.html')
@@ -221,18 +220,24 @@ def meet(meet_name):
 @login_required
 def api_token_gen():
     #get the username and roomname from the frontend
-    user_name = request.get_json(force = True).get('username')
-    room_name = request.get_json(force = True).get('roomname')
-    # Create an Access Token
+    user_name = current_user.name
+    # gets the room name from url
+    room_name = request.get_json(force = True).get('url').split('/')[-1]
+    # Creates an Access Token
     token = AccessToken(ACCOUNT_SID, API_KEY_SID, API_KEY_SECRET, identity = user_name)
-    # Create a video grant and add it to the token
+    # Creates a video grant and adds it to the token
     grant = VideoGrant(room = room_name)
     token.add_grant(grant)
-    # Serialize the token as a JWT(json web token) i.e converts token to json which can be returned to the frontend
+    # Serializes the token as a JWT(json web token) i.e converts token to json which can be returned to the frontend
     jwt = token.to_jwt().decode()
     time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day}/{time.month}/{time.year} {time.hour}:{time.minute}:{time.second}] TOKEN GENERATED USER:{user_name} ROOM:{room_name}")    
-    return {'token':jwt}
+    print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] TOKEN GENERATED USER:{user_name} ROOM:{room_name}")    
+    # return both the token and room name as a json
+    return {'token':jwt, 'roomname':room_name}
+
+@app.route('/discuss')
+def discuss():
+    return render_template('Discuss.html')
 
 #-------------------------------Execution starts here------------------------------------------------
 if __name__ == '__main__':
