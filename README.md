@@ -1,6 +1,6 @@
 # First project of Team - Ayusheer 
 
-This is a kind of WebApp mainly used to conduct online classes. This platform is very much helpful especially in current situation, where almost every company conducts meetings through Virtually.
+This is a kind of WebApp mainly used to conduct online classes. This platform is very much helpful especially in current situation, where almost every company conducts meetings Virtually.
 
 ## Project Description
 
