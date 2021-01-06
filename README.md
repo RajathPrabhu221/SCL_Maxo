@@ -1,6 +1,6 @@
 # First project of Team - Ayusheer 
 
-This is a kind of WebApp mainly used to conduct online classes. This platform is very much helpful especially in current situation, where almost every company conducts meetings Virtually.
+This is a kind of WebApp mainly used to conduct online classes. This platform is very much helpful especially in the current situation, where almost every company conducts meetings Virtually.
 
 ## Project Description
 
@@ -28,4 +28,4 @@ This is a kind of WebApp mainly used to conduct online classes. This platform is
 
 #### About the Video Quality
 - Best video meeting quality
-- Less data usage and works efficiently even in low bandwidth condition.
+- Less data usage and works efficiently even in low bandwidth conditions.
