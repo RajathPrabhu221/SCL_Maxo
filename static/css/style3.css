@@ -36,6 +36,18 @@ body, html {
 	font-family: Poppins-Regular, sans-serif;
 }
 
+
+nav{
+
+  color:#FFF; 
+  background: #57b846;
+}
+
+nav:hover{
+  background-color: rgb(115, 229, 233);
+  transition: 1s;
+}
+
 button {
 	outline: none !important;
 	border: none;
@@ -48,6 +60,10 @@ button:hover {
 
 iframe {
 	border: none !important;
+}
+
+#Brand{
+  font-size: 40px;
 }
 
 .limiter {
@@ -127,6 +143,7 @@ iframe {
   -moz-transition: all 0.4s;
   transition: all 0.4s;
   position: absolute;
+  top: 270;
   left: 30%;
 }
 
@@ -153,7 +170,7 @@ iframe {
   transition: all 0.4s;
   position: absolute;
   right: 30%;
-  top: 260px;
+  top: 270px;
 }
 
 .create:hover {
@@ -165,13 +182,7 @@ iframe {
 }
 
 
-.team{
-  position: absolute;
-  top: 50px;
-  float: left;
-  font-size: 40px;
-  color: #ffffff;
-}
+
 
 .txt1{
   color:#FFF; 
