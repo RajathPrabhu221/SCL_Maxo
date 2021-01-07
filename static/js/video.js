@@ -1,29 +1,39 @@
+/*
+link to official twilio video documentation https://www.twilio.com/docs/video/javascript-getting-started
+*/
+
 const connect_room_btn = document.getElementById('connection');
+const connect_btn = document.getElementById('connection-btn');
 const video_element = document.getElementById('meet-wrapper');
 const audio_btn = document.getElementById('a2');
 const video_btn = document.getElementById('a1');
-var username = "Mr. Robot";
-const roomname = "Daily-Standup";
 var video_connected = false;
 var audio_connected = false;
 var connected = false;
 var room;
 
 // publishes the media of the local participant
-function addLocalVideo() {
-    Twilio.Video.createLocalVideoTrack().then(track => {
-        let trackElement = track.attach();
-        video_element.appendChild(trackElement);
-    });
+function add_local_media() {
+    let local_media_container = document.createElement('div');
+    local_media_container.setAttribute('id', 'local');
+    local_media_container.setAttribute('class', 'participant');
+        
+    Twilio.Video.createLocalTracks().then(function(localTracks) {
+        localTracks.forEach(function(track) {
+          local_media_container.appendChild(track.attach());
+        });
+      });
+    video_element.appendChild(local_media_container);
 }
 
 function connectButtonHandler(event) {
     event.preventDefault();
     if (!connected) {
-        connect(username, roomname).then(() => {
+        connect_btn.disabled = true;
+        connect().then(() => {
           console.log("connected");
         }).catch(() => {
-            alert('Connection failed. Please grant access to your webcam?');
+            alert('Connection failed. Please try refreshing the page and give access to your camera and microphone if you not have already');
         });
     }
     else {
@@ -31,19 +41,20 @@ function connectButtonHandler(event) {
     }
 }
 
-function connect(username, roomname) {
+function connect() {
     let promise = new Promise((resolve, reject) => {
         // gets the token corresponding to the local participant from the back end
         let data;
         fetch('/gen_token', {
             method: 'POST',
-            body: JSON.stringify({'username': username, 'roomname': roomname}) // sends username and roomname as json to the backend
+            body: JSON.stringify({'url': window.location.href}) // sends username and roomname as json to the backend
         }).then(res => res.json()).then(_data => { // _data contains the token from the backend
             data = _data;
             // uses the token to connect to the room
-            return Twilio.Video.connect(data.token, {name:roomname});
+            return Twilio.Video.connect(data.token, {name:data.roomname});
         }).then(_room => {
-            addLocalVideo();
+            add_local_media();
+            connect_btn.disabled = false;
             room = _room;
             // for each participant that is already connected call the function participantConnected on it
             room.participants.forEach(participantConnected);
@@ -55,10 +66,11 @@ function connect(username, roomname) {
             video_connected = true;
             audio_connected = true;
             // on connecting change the buttons function from joining the meet to disconnecting from it
-            connect_room_btn.innerHTML = 'leave meet';
+            connect_room_btn.innerHTML = 'Leave Meeting';
             // resolves the promise on successfully connecting to the room
             resolve();
         }).catch(e => {
+            connect_btn.disabled = false;
             // if there is any error in the due course of the promise it is caught
             console.log(e);
             // promise is rejected
@@ -133,17 +145,23 @@ function participantDisconnected(participant) {
 function audio_handler(){
     if (audio_connected)
     {
+        // disables the audio of local participant
         room.localParticipant.audioTracks.forEach(publication => {
             publication.track.disable();
       });
+        // changes the icon of audio button to microphone-slash
         document.getElementById('audio-icon').innerHTML = '<i class="fas fa-microphone-slash fa-2x"></i>';
+        document.getElementById('local').getElementsByTagName('audio')[0].style.display = "none"; 
     }
     else
     {
+        // enables the audio of  local partcipant
         room.localParticipant.audioTracks.forEach(publication => {
             publication.track.enable();
           });
-          document.getElementById('audio-icon').innerHTML = '<i class="fa fa-microphone fa-2x" aria-hidden="true"></i>';
+        // changes the audio icon to microphone
+        document.getElementById('audio-icon').innerHTML = '<i class="fa fa-microphone fa-2x" aria-hidden="true"></i>';
+        document.getElementById('local').getElementsByTagName('audio')[0].style.display = "block";
     }
     audio_connected = !audio_connected;
 }
@@ -152,17 +170,23 @@ function audio_handler(){
 function video_handler(){
     if (video_connected)
     {
+        // disables the video of the local  participant
         room.localParticipant.videoTracks.forEach(publication => {
             publication.track.disable();
         });
-      document.getElementById('video-icon').innerHTML='<i class="fas fa-video-slash fa-2x"></i>';
+        // changes the video button to video-camera-slash
+        document.getElementById('video-icon').innerHTML='<i class="fas fa-video-slash fa-2x"></i>';
+        document.getElementById('local').getElementsByTagName('video')[0].style.display = "none";
     }
     else
     {
+        // enables the video of the local participant
         room.localParticipant.videoTracks.forEach(publication => {
             publication.track.enable();
         });
-       document.getElementById('video-icon').innerHTML='<i  class="fa fa-video-camera fa-2x" aria-hidden="true"></i>';   
+        // changes the video button to video-camera
+        document.getElementById('video-icon').innerHTML='<i  class="fa fa-video-camera fa-2x" aria-hidden="true"></i>';   
+        document.getElementById('local').getElementsByTagName('video')[0].style.display = "block";
     }
     video_connected = !video_connected;
 }
@@ -172,10 +196,10 @@ function disconnect() {
     //disconnects from the room
     room.disconnect();
     // removes the entire div of the meet
-    video_element.remove();
+    video_element.innerHTML = '';
     connected = false;
     // switches the function of button from leaving meet to joining
-    connect_room_btn.innerHTML = 'join meet';
+    connect_room_btn.innerHTML = 'Join Meeting';
 }
 
 connect_room_btn.addEventListener('click',connectButtonHandler);
