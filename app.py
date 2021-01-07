@@ -8,7 +8,7 @@ from twilio.jwt.access_token.grants import VideoGrant
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
-from flask_login import LoginManager, UserMixin, login_user, current_user, login_required
+from flask_login import LoginManager, UserMixin, login_user, current_user, login_required, logout_user
 
 # Reads the key-value pair from .env file and adds them to environment variable
 load_dotenv()
@@ -72,7 +72,6 @@ def add_user(username, email, password):
     print(f"Username:{username}, Email:{email}, Password:{password}")
     # checks if the user already exists before adding to the table
     check_user = User.query.filter_by(email=email).first()
-    print(check_user)
     if check_user != None:
         return False
     time = datetime.datetime.now()
@@ -239,6 +238,10 @@ def api_token_gen():
 def discuss():
     return render_template('Discuss.html')
 
+@app.route('/log_out')
+def log_out():
+    logout_user()
+    return redirect(url_for('index'))
 #-------------------------------Execution starts here------------------------------------------------
 if __name__ == '__main__':
     # creates the database with columns specified by the Users database model if it already does not exist
