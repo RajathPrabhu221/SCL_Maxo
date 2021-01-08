@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager, UserMixin, login_user, current_user, login_required, logout_user
+from flask_socketio import SocketIO, emit
 
 # Reads the key-value pair from .env file and adds them to environment variable
 load_dotenv()
@@ -237,7 +238,7 @@ def api_token_gen():
 @app.route('/discuss')
 def discuss():
     return render_template('Discuss.html')
-    
+
 @app.route('/log_out')
 @login_required
 def log_out():
