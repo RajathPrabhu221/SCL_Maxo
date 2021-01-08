@@ -17,8 +17,17 @@
         </a>
          <h2 class="heading" id="title">Discussion prompt</h2>
      </div>
-     <!-- Div to post the list of comments -->
-     <div></div>
+     <div class="comment-container">
+        {% for comment in comments %}
+            <div class="comment">
+                <div class="user">{{comment.user}}</div>
+                <div class="date">{{comment.date}}</div>
+                <div class="content">
+                    <h5>{{comment.content}}</h5>
+                </div>
+            </div>
+        {% endfor %}
+     </div>
      <div class="container">
         <form method="POST" id="comment_form">
             <div class="form-group">
