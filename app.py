@@ -272,6 +272,14 @@ def discuss():
     comments = Comment.query.order_by(Comment.date)    
     return render_template('Discuss.html', comments=comments)
 
+@socketio.on('commented')
+def comment_handler(comment_content):
+    # adds the comment to the database
+    #comment = add_comment(comment_content, current_user.name)
+    date = f'{comment.date.year}-{comment.date.month:02d}-{comment.date.day:02d} {comment.date.hour:02d}:{comment.date.minute:02d}-{comment.date.second:02d}'
+    # returns the information related to the comment to the frontend where it is dynamically added
+    emit('commented',{'user':comment.user, 'date':date,'content':comment.content}, broadcast=True)
+
 @app.route('/log_out')
 @login_required
 def log_out():
