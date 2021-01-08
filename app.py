@@ -265,9 +265,12 @@ def api_token_gen():
     # return both the token and room name as a json
     return {'token':jwt, 'roomname':room_name}
 
-@app.route('/discuss')
+@app.route('/discuss', methods = ['GET'])
+@login_required
 def discuss():
-    return render_template('Discuss.html')
+    # same as -> select * from comments order by date;
+    comments = Comment.query.order_by(Comment.date)    
+    return render_template('Discuss.html', comments=comments)
 
 @app.route('/log_out')
 @login_required
