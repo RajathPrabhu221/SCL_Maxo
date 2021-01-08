@@ -184,5 +184,6 @@ iframe {
   }
   
 
-
-
+  .date{
+    float: right;
+  }
