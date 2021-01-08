@@ -6,4 +6,9 @@ $(document).ready(function(){
         console.log('connected');
     })
 
+    $("#comment_form").on('submit', function(e){
+        e.preventDefault();
+        socket.emit('commented', $('#comment_content').val());
+        $('#comment_content').val(' ');
+    });
 });
