@@ -40,6 +40,9 @@ db = SQLAlchemy(app)
 # sets the path to the folder where the pdfs are to be saved
 app.config['PDF_FOLDER_PATH'] = os.environ.get('PDF_UPLOAD')
 
+# socketio object
+socketio = SocketIO(app)
+
 # defining User database model
 class User(db.Model, UserMixin):
     __tablename__ = "users"
@@ -249,5 +252,5 @@ if __name__ == '__main__':
     # creates the database with columns specified by the Users database model if it already does not exist
     db.create_all()
     db.session.commit()
-    app.run(debug=True)
+    socketio.run(app)
     
