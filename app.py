@@ -70,6 +70,17 @@ class Meet(db.Model):
         self.topic = topic
         self.pdf_link = pdf_link
 
+class Comment(db.Model):
+    __tablename__ = "comments"
+    id = db.Column("id", db.Integer, primary_key=True)
+    content = db.Column("content", db.Text)
+    user = db.Column("user", db.String(100))
+    date = db.Column("date",db.DateTime)
+
+    def __init__(self, content, user):
+        self.content = content
+        self.user = user
+        self.date = datetime.datetime.now()
 #---------------------- UTIL FUNCTIONS -----------------------
 # adds new user to the User database
 def add_user(username, email, password):
