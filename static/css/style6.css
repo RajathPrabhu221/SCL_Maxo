@@ -191,3 +191,10 @@ iframe {
   .comment-container{
     padding: 5% 5%;
   }
+
+  .comment{
+    margin: 2% 2%;
+    padding: 2% 2%;
+    background-color: black;
+    color:yellow;
+  }
