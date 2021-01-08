@@ -1,5 +1,5 @@
 
- # Ne-Meet<img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/Final%20Logo.png" border="0" width= 50>
+ # Ne-Meet <img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/Final%20Logo.png" border="0" width= 50>
  
 This is a kind of WebApp mainly used to conduct online classes. This platform is very much helpful especially in the current situation, where almost every company conducts meetings Virtually.
 
