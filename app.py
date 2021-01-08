@@ -1,7 +1,7 @@
 #-----------------------Import------------------------------
 import os
 import datetime
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
 from dotenv import load_dotenv
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
@@ -237,8 +237,9 @@ def api_token_gen():
 @app.route('/discuss')
 def discuss():
     return render_template('Discuss.html')
-
+    
 @app.route('/log_out')
+@login_required
 def log_out():
     logout_user()
     return redirect(url_for('index'))
