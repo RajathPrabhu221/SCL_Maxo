@@ -125,6 +125,38 @@ iframe {
     transition: all 0.4s;
   }
 
+  #reply:hover, #cancel:hover, #submit:hover{
+    background: #333333;
+  }
+
+  #response_section{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
+  }
+
+  #cancel,#submit{
+    margin: 10px;
+    width: 100px;
+  }
+
+  #cancel{
+    background: rgb(221, 21, 21);
+  }
+
+  #comment_name, #comment_content, #response{
+    background-color: #d8d4d4;
+  }
+
+  #comment_name:focus, #comment_content:focus , #response:focus {
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.31);
+  }
+
   /*------------------------------------------------------------------
 [ Responsive ]*/
 
