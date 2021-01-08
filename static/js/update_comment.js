@@ -11,4 +11,15 @@ $(document).ready(function(){
         socket.emit('commented', $('#comment_content').val());
         $('#comment_content').val(' ');
     });
+
+    socket.on('commented',function(data){
+        $('.comment-container').append(
+            `<div class="comment">
+                <div class="user">${data.user}</div>
+                <div class="date">${data.date}</div>
+                <div class="content">
+                    <h5>${data.content}</h5>
+                </div>
+            </div>`);
+    });
 });
