@@ -44,8 +44,21 @@ nav{
 }
 
 nav:hover{
-  background-color: rgb(115, 229, 233);
-  transition: 1s;
+  background-color: #F8CF40;
+  transition: 0.5s;
+  box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.31);
+}
+
+#a1:hover , #a2:hover{
+  
+  background-color: #57b846;
+  padding: 5px;
+  border-radius: 3px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.31);
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
 }
 
 button {
@@ -180,8 +193,6 @@ iframe {
 .join:hover {
   background: #333333;
 }
-
-
 
 
 .txt1{

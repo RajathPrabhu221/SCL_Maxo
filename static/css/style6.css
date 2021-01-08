@@ -99,7 +99,90 @@ iframe {
     background: #333333;
   }
 
-  /*------------------------------------------------------------------
-[ Responsive ]*/
+  #reply,#cancel,#submit{
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+  
+    width: 20%;
+    height: 50px;
+    border-radius: 25px;
+    background: #57b846;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+
+  #reply:hover, #cancel:hover, #submit:hover{
+    background: #333333;
+  }
+
+  #response_section{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 20px;
+  }
+
+  #cancel,#submit{
+    margin: 10px;
+    width: 100px;
+  }
+
+  #cancel{
+    background: rgb(221, 21, 21);
+  }
+
+  #comment_name, #comment_content, #response{
+    background-color: #d8d4d4;
+  }
+
+  #comment_name:focus, #comment_content:focus , #response:focus {
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.31);
+  }
+
+  a {
+    font-family: Poppins-Regular;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #666666;
+    margin: 0px;
+  }
+  a:hover{
+    text-decoration: none;
+  }
+
+  a:focus {
+    outline: none !important;
+  }
+  
+  #name:hover {
+    background-color: #57b846;
+    padding: 5px;
+    border-radius: 3px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.31);
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+  }
+  
+
 
 

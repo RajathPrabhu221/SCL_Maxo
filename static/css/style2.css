@@ -27,6 +27,33 @@
   box-sizing: border-box;
 }
 
+a{
+  font-family: Poppins-Regular;
+  line-height: 1.7;
+  color: #ffffff;
+  margin: 0px;
+}
+
+a:hover{
+  text-decoration: none;
+  color: #fff;
+}
+
+a:focus {
+  outline: none !important;
+}
+
+#name:hover {
+  background-color: #57b846;
+  padding: 5px;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.31);
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+}
+
 body, html {
   height: 100%;
   font-family: Poppins-Regular, sans-serif;
@@ -350,6 +377,11 @@ iframe {
   
   .login100-form{
     padding-bottom: 20px;
+  }
+
+  #name{
+    width: 27%;
+    font-size: 25px;
   }
 }
 
