@@ -1,0 +1,28 @@
+<html>
+ <head>
+     <title>Discussion</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+     <link rel="stylesheet" type="text/css" href="css/style6.css">
+ </head>
+ <body>
+    <div class="top" id="top">
+        <a href="home.html">
+            <h2 class="heading" id="name">Ayusheer</h2>
+        </a>
+        <h2 class="heading" id="title">Discussion prompt</h2>
+    </div>
+    <!-- I have kept the next div empty for the comment section to be posted -->
+    <div class="question"></div>
+    <div class="container" id="response_section">
+        <textarea name="comment_content" id="response" style="display: none;"  class="form-control" placeholder="Enter your response" rows="5"></textarea>
+         <button id="reply" onclick="show_hide()">Reply</button>
+         <button id="cancel" onclick="show_hide()" style="display: none;">Cancel</button>
+         <button id="submit" onclick="show_hide()" style="display: none;">Submit</button>
+     </div>
+     <script src="showhide.js">
+
+     </script>
+
+ </body>
+</html>
