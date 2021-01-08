@@ -81,6 +81,22 @@ class Comment(db.Model):
         self.content = content
         self.user = user
         self.date = datetime.datetime.now()
+
+class Thread(db.Model):
+    __tablename__ = "threads"
+    id = db.Column("id", db.Integer, primary_key=True)
+    comment_id = db.Column("comment_id", db.Integer)
+    content = db.Column("content", db.Text)
+    user = db.Column("user", db.String(100))
+    date = db.Column("date",db.DateTime)
+
+    def __init__(self, parent_id, content, user):
+        self.parent_id = parent_id
+        self.content = content
+        self.user = user
+        self.date = datetime.datetime.now()
+
+
 #---------------------- UTIL FUNCTIONS -----------------------
 # adds new user to the User database
 def add_user(username, email, password):
