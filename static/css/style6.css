@@ -187,3 +187,7 @@ iframe {
   .date{
     float: right;
   }
+
+  .comment-container{
+    padding: 5% 5%;
+  }
