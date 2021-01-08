@@ -151,6 +151,15 @@ def validate_extension(file_name):
         return True
     return False
 
+# adds the comment to the comment database
+def add_comment(comment_content, user_name):
+    # creates a comment object
+    comment = Comment(comment_content, user_name)
+    # adds the comment object to the database and commits it
+    db.session.add(comment)
+    db.session.commit()
+    return comment
+
 # gets the session id of the particular user with the id provided to the function
 @login_manager.user_loader
 def load_user(user_id):
@@ -275,7 +284,7 @@ def discuss():
 @socketio.on('commented')
 def comment_handler(comment_content):
     # adds the comment to the database
-    #comment = add_comment(comment_content, current_user.name)
+    comment = add_comment(comment_content, current_user.name)
     date = f'{comment.date.year}-{comment.date.month:02d}-{comment.date.day:02d} {comment.date.hour:02d}:{comment.date.minute:02d}-{comment.date.second:02d}'
     # returns the information related to the comment to the frontend where it is dynamically added
     emit('commented',{'user':comment.user, 'date':date,'content':comment.content}, broadcast=True)
