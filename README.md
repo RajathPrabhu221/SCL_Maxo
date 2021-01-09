@@ -14,6 +14,8 @@ This is a kind of WebApp mainly used to conduct online classes. This platform is
 5) Sassy CSS (SCSS) <a href="https://html.com/"><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/SCSS%20logo.jpg" width= 50></a>
 6) Flask <a href="https://flask.palletsprojects.com/en/1.1.x/"><img src="static/images/Flask%20logo%20Modified.jpg" width= 35></a>
 7) Twilio <a href="https://www.twilio.com/docs/video/javascript-getting-started" target="_blank" ><img src="https://github.com/RajathPrabhu221/SCL_Maxo/blob/main/static/images/Twilio%20logo%20Modified.png" width= 40></a>
+8) Socket-io <a href="https://socket.io/" target="_blank" ><img src="static/images/Socket-io.svg" width= 35></a>
+
 
 ## Installation 
 
