@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     socket.on('connect',function(){
         console.log('connected');
-    })
+    });
 
     $("#comment_form").on('submit', function(e){
         e.preventDefault();
