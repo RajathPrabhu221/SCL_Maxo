@@ -4,7 +4,8 @@
     <title>Meet</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<!-- Icon -->
+	<link rel="icon" type="image/png" href="{{url_for('static', filename='images/Final-Logo.png')}}"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}">
 <!--===============================================================================================-->
@@ -21,7 +22,7 @@
 <body>
 	<section class="live"></section>
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-light">
-    	<a href="#" class="navbar-brand" id="Brand" style="color: #ffffff;">Ayusheer</a>
+    	<a href="#" class="navbar-brand" id="Brand" style="color: #ffffff;">Ne-Meet</a>
     	<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu" style="color: #fff;"><i class="fa fa-bars fa-2x" id="navicon" aria-hidden="true"></i></button>
     	<div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
     	    <ul class="navbar-nav" >
@@ -60,14 +61,14 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="//media.twiliocdn.com/sdk/js/video/releases/2.8.0/twilio-video.min.js"></script>
-<!--===============================================================================================-->	
+                             <!-- jQuery library -->	
 	<script src="{{url_for('static', filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
-<!--===============================================================================================-->
+                       <!-- Latest compiled javascript -->
 	<script src="{{url_for('static', filename='vendor/bootstrap/js/popper.js')}}"></script>
 	<script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 <!--===============================================================================================-->
 	<script src="{{url_for('static', filename='vendor/select2/select2.min.js')}}"></script>
-<!--===============================================================================================-->
+                             <!-- jQuery library -->
 	<script src="{{url_for('static', filename='vendor/tilt/tilt.jquery.min.js')}}"></script>
 	<script src="{{url_for('static', filename='js/video.js')}}"></script>
 	<script>

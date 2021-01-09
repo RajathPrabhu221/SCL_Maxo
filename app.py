@@ -1,7 +1,7 @@
 #-----------------------Import------------------------------
 import os
 import datetime
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, session, redirect, url_for, flash, jsonify
 from dotenv import load_dotenv
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import VideoGrant
@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager, UserMixin, login_user, current_user, login_required, logout_user
+from flask_socketio import SocketIO, emit
 
 # Reads the key-value pair from .env file and adds them to environment variable
 load_dotenv()
@@ -39,6 +40,9 @@ db = SQLAlchemy(app)
 # sets the path to the folder where the pdfs are to be saved
 app.config['PDF_FOLDER_PATH'] = os.environ.get('PDF_UPLOAD')
 
+# socketio object
+socketio = SocketIO(app)
+
 # defining User database model
 class User(db.Model, UserMixin):
     __tablename__ = "users"
@@ -65,6 +69,33 @@ class Meet(db.Model):
         self.subject = subject
         self.topic = topic
         self.pdf_link = pdf_link
+
+class Comment(db.Model):
+    __tablename__ = "comments"
+    id = db.Column("id", db.Integer, primary_key=True)
+    content = db.Column("content", db.Text)
+    user = db.Column("user", db.String(100))
+    date = db.Column("date",db.DateTime)
+
+    def __init__(self, content, user):
+        self.content = content
+        self.user = user
+        self.date = datetime.datetime.now()
+
+class Thread(db.Model):
+    __tablename__ = "threads"
+    id = db.Column("id", db.Integer, primary_key=True)
+    comment_id = db.Column("comment_id", db.Integer)
+    content = db.Column("content", db.Text)
+    user = db.Column("user", db.String(100))
+    date = db.Column("date",db.DateTime)
+
+    def __init__(self, parent_id, content, user):
+        self.parent_id = parent_id
+        self.content = content
+        self.user = user
+        self.date = datetime.datetime.now()
+
 
 #---------------------- UTIL FUNCTIONS -----------------------
 # adds new user to the User database
@@ -119,6 +150,15 @@ def validate_extension(file_name):
     if file_extension[-1] in valid_extensions and len(file_extension) < 3:
         return True
     return False
+
+# adds the comment to the comment database
+def add_comment(comment_content, user_name):
+    # creates a comment object
+    comment = Comment(comment_content, user_name)
+    # adds the comment object to the database and commits it
+    db.session.add(comment)
+    db.session.commit()
+    return comment
 
 # gets the session id of the particular user with the id provided to the function
 @login_manager.user_loader
@@ -234,11 +274,23 @@ def api_token_gen():
     # return both the token and room name as a json
     return {'token':jwt, 'roomname':room_name}
 
-@app.route('/discuss')
+@app.route('/discuss', methods = ['GET'])
+@login_required
 def discuss():
-    return render_template('Discuss.html')
+    # same as -> select * from comments order by date;
+    comments = Comment.query.order_by(Comment.date)    
+    return render_template('Discuss.html', comments=comments)
+
+@socketio.on('commented')
+def comment_handler(comment_content):
+    # adds the comment to the database
+    comment = add_comment(comment_content, current_user.name)
+    date = f'{comment.date.year}-{comment.date.month:02d}-{comment.date.day:02d} {comment.date.hour:02d}:{comment.date.minute:02d}-{comment.date.second:02d}'
+    # returns the information related to the comment to the frontend where it is dynamically added
+    emit('commented',{'user':comment.user, 'date':date,'content':comment.content}, broadcast=True)
 
 @app.route('/log_out')
+@login_required
 def log_out():
     logout_user()
     return redirect(url_for('index'))
@@ -247,5 +299,5 @@ if __name__ == '__main__':
     # creates the database with columns specified by the Users database model if it already does not exist
     db.create_all()
     db.session.commit()
-    app.run(debug=True)
+    socketio.run(app)
     

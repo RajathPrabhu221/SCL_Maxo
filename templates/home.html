@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="{{url_for('static',filename='images/icons/favicon.ico')}}"/>
+	<link rel="icon" type="image/png" href="{{url_for('static', filename='images/Final-Logo.png')}}"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css')}}">
 <!--===============================================================================================-->
@@ -17,7 +17,7 @@
 <body>
 	<div>
 		<nav class="navbar fixed-top navbar-expand-sm navbar-light">
-			<a href="#" class="navbar-brand" id="Brand" style="color: #ffffff;">Ayusheer</a>
+			<a href="#" class="navbar-brand" id="Brand" style="color: #ffffff;">Ne-Meet</a>
 			<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu" style="color: #fff;"><i class="fa fa-bars fa-2x" id="navicon" aria-hidden="true"></i></button>
 			<div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
 				<ul class="navbar-nav" >
@@ -85,10 +85,10 @@
 
 	
 <!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="{{url_for('static',filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="{{url_for('static',filename='vendor/bootstrap/js/popper.js')}}"></script>
+	<script src="{{url_for('static',filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 
 </script>
 </body>
