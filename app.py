@@ -297,9 +297,13 @@ def comment_handler(comment_content):
 
 @app.route('/reply')
 def reply():
+    # gets the comment id from the get request parameters
     comment_id = int(request.args.get('comment_id'))
+    # gets the comment corresponding to the 
     comment = Comment.query.filter_by(id = comment_id).first()
+    # gets all the threads(replies) corresponding to the above comment
     threads = Thread.query.filter_by(comment_id=comment_id).order_by(Thread.date)
+    # the comment and the replies are rendered
     return render_template("Reply.html", comment=comment, threads=threads)
 
 @socketio.on('join-room')
