@@ -198,3 +198,10 @@ iframe {
     background-color: black;
     color:yellow;
   }
+
+  #logo{
+    width: 25px;
+    margin-right: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
