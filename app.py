@@ -318,17 +318,20 @@ def join_room_handler(data):
 
 @socketio.on('replied')
 def reply_handler(thread_data):
-    print(thread_data)
+    # gets the room id from the thread data sent by frontend
     room = thread_data['thread_room']
+    # gets the thread content
     thread_content = thread_data['thread_content']
-    print(thread_content)
+    # adds the thread to the database
     thread = add_thread(thread_content, room, current_user.name)
     date = f'{thread.date.year}-{thread.date.month:02d}-{thread.date.day:02d} {thread.date.hour:02d}:{thread.date.minute:02d}-{thread.date.second:02d}'
+    # emits replied event which updates the reply in the frontend
     emit('replied', { 'user':thread.user, 'date':date, 'content':thread.content }, room=room)
 
 @app.route('/log_out')
 @login_required
 def log_out():
+    # logs a user out
     logout_user()
     return redirect(url_for('index'))
 #-------------------------------Execution starts here------------------------------------------------
