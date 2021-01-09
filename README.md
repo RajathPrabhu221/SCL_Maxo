@@ -1,7 +1,7 @@
 
  # Ne-Meet <img src="static/images/Final-Logo.png" border="0" width= 50>
  
-A video conference app oriented towards better digital education. The app provides seamless video streaming with quality notes running at the same time. An app inclined towards the betterment of the students.
+A video conference app oriented towards better digital education. The app provides seamless video streaming with quality notes running at the same time. This is completely inclined towards the betterment of the students.
 
 ## Project Description
 
