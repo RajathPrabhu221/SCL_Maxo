@@ -7,15 +7,15 @@ This is a kind of WebApp mainly used to conduct online classes. This platform is
 
 #### Languages Used:
 
-1) Python <a href="https://www.python.org/" target="_blank" ><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/python%20logo.png" width= 30></a>
+1) Python <a href="https://www.python.org/" ><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/python%20logo.png" width= 30></a>
 2) HTML <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img src="static/images/HTML%20logo%20Modified.png" width= 30></a>
 3) CSS  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/CSS%20logo.png" width= 30></a>
 4) Java Script <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="static/images/javascript%20modified.png" width= 30></a>
 5) Sass CSS (SCSS) <a href="https://sass-lang.com/"><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/SCSS%20logo.jpg" width= 50></a>
 6) Flask <a href="https://flask.palletsprojects.com/en/1.1.x/"><img src="static/images/Flask%20logo%20Modified.jpg" width= 35></a>
-7) Twilio <a href="https://www.twilio.com/docs/video/javascript-getting-started" target="_blank" ><img src="https://github.com/RajathPrabhu221/SCL_Maxo/blob/main/static/images/Twilio%20logo%20Modified.png" width= 40></a>
-8) Socket-io <a href="https://socket.io/" target="_blank" ><img src="static/images/Socket-io.svg" width= 35></a>
-9) MySQL <a href="https://www.mysql.com/" ><img src="static/images/my%20sql.png" width= 50></a>
+7) Twilio <a href="https://www.twilio.com/docs/video/javascript-getting-started"><img src="https://github.com/RajathPrabhu221/SCL_Maxo/blob/main/static/images/Twilio%20logo%20Modified.png" width= 40></a>
+8) Socket-io <a href="https://socket.io/"><img src="static/images/Socket-io.svg" width= 35></a>
+9) MySQL <a href="https://www.mysql.com/"><img src="static/images/my%20sql.png" width= 50></a>
 
 
 ## Installation 
