@@ -161,7 +161,9 @@ def add_comment(comment_content, user_name):
     return comment
 
 def add_thread(thread_content, comment_id, user_name):
+    # creates a thread object
     thread = Thread(comment_id, thread_content, user_name)
+    # adds the thread to the database and commits it
     db.session.add(thread)
     db.session.commit()
     return thread
@@ -301,7 +303,7 @@ def reply():
     comment_id = int(request.args.get('comment_id'))
     # gets the comment corresponding to the 
     comment = Comment.query.filter_by(id = comment_id).first()
-    # gets all the threads(replies) corresponding to the above comment
+    # gets all the threads(replies) corresponding to the above comment, same as -> select * from threads where comment_id=comment_id order by date;
     threads = Thread.query.filter_by(comment_id=comment_id).order_by(Thread.date)
     # the comment and the replies are rendered
     return render_template("Reply.html", comment=comment, threads=threads)
