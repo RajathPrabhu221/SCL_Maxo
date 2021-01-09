@@ -1,5 +1,5 @@
 
- # Ne-Meet <img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/Final%20Logo.png" border="0" width= 50>
+ # Ne-Meet <img src="static/images/Final-Logo.png" border="0" width= 50>
  
 This is a kind of WebApp mainly used to conduct online classes. This platform is very much helpful especially in the current situation, where almost every company conducts meetings Virtually.
 
@@ -15,19 +15,59 @@ This is a kind of WebApp mainly used to conduct online classes. This platform is
 6) Flask <a href="https://flask.palletsprojects.com/en/1.1.x/"><img src="static/images/Flask%20logo%20Modified.jpg" width= 35></a>
 7) Twilio <a href="https://www.twilio.com/docs/video/javascript-getting-started" target="_blank" ><img src="https://github.com/RajathPrabhu221/SCL_Maxo/blob/main/static/images/Twilio%20logo%20Modified.png" width= 40></a>
 
-#### On this WebApp you can:
-- Video chat with local people
-- Chat with any person around the world
-- Conduct an Effective Business Meeting. 
-- Online classes for students.
--  You can upload documents for today's meet (for an online class) so that the students attending the meet can have a look at the notes simultaneously, and hence students can understand the topics covered in the meet in a much effective way. Students can download those documents anytime until and till they are signed up for their account in the WebApp.
+## Installation 
 
+1. Fork and Clone
+    <ol>
+    <li>Fork the Repo</li>
+    <li>Clone the repo to you computer.</li>
+    </ol>
 
-#### 
-- It's super easy! Install the free (Our App name), click on "New Meeting," and invite up to (number of people) people to join you on video! Connect with anyone on Android-based phones and tablets, other mobile devices, Windows.
-- This app especially allows the group, teachers, leaders, students to join the conference without any restrictions. This will be very helpful for the students and teachers for teaching purposes.
+2. Create a Virtual Environment for the Project
 
+    In Windows
+    ```bash
+    python -m venv venv
+    
+    venv\Scripts\activate
+    ```
 
-#### About the Video Quality
-- Best video meeting quality
-- Less data usage and works efficiently even in low bandwidth conditions.
+    In Ubuntu/MacOS
+    ```bash
+    python -m virtualenv venv
+    
+    source venv/bin/activate
+    ```
+   
+   If you are giving a different name then `venv`, then please mention it in `.gitigonre` first
+
+3. Install all the requirements
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+    
+4. Create a file called .env and copy the contents from envtemplate to it.
+   Change the config parameters
+   ```dosini
+   # api keys
+   TWILIO_ACCOUNT_SID='your twilio account sid'
+   TWILIO_API_KEY_SID='your twilio api key sid'
+   TWILIO_API_KEY_SECRET='your twilio api secret'
+   TWILIO_AUTH_TOKEN ='your twilio api auth token'
+
+   #database credentials
+   SECRET_KEY='your secret key'
+   DATABASE_INFO='mysql://usernmame:password@server/database'
+
+   PDF_UPLOAD='absolute path to the folder where the pdfs are to be saved'
+   ```
+   
+5.  Execute ```bash python app.py ``` to start the server
+
+6. Do the Development and send me a PR referencing the issue.
+   
+
+## Contributing
+   Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
