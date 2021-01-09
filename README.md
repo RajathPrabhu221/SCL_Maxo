@@ -68,9 +68,4 @@ A video conference app oriented towards better digital education. The app provid
    
 5.  Execute ```bash python app.py ``` to start the server
 
-6. Do the Development and send me a PR referencing the issue.
-   
-
-## Contributing
-   Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
+6. Raise an issue in case of development and send us a PR
