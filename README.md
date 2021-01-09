@@ -1,7 +1,7 @@
 
  # Ne-Meet <img src="static/images/Final-Logo.png" border="0" width= 50>
  
-This is a kind of WebApp mainly used to conduct online classes. This platform is very much helpful especially in the current situation, where almost every company conducts meetings Virtually.
+A video conference app oriented towards better digital education. The app provides seamless video streaming with quality notes running at the same time. An app inclined towards the betterment of the students.
 
 ## Project Description
 
