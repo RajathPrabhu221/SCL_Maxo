@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager, UserMixin, login_user, current_user, login_required, logout_user
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, join_room
 
 # Reads the key-value pair from .env file and adds them to environment variable
 load_dotenv()
@@ -90,8 +90,8 @@ class Thread(db.Model):
     user = db.Column("user", db.String(100))
     date = db.Column("date",db.DateTime)
 
-    def __init__(self, parent_id, content, user):
-        self.parent_id = parent_id
+    def __init__(self, comment_id, content, user):
+        self.comment_id = comment_id
         self.content = content
         self.user = user
         self.date = datetime.datetime.now()
@@ -159,6 +159,12 @@ def add_comment(comment_content, user_name):
     db.session.add(comment)
     db.session.commit()
     return comment
+
+def add_thread(thread_content, comment_id, user_name):
+    thread = Thread(comment_id, thread_content, user_name)
+    db.session.add(thread)
+    db.session.commit()
+    return thread
 
 # gets the session id of the particular user with the id provided to the function
 @login_manager.user_loader
@@ -288,6 +294,30 @@ def comment_handler(comment_content):
     date = f'{comment.date.year}-{comment.date.month:02d}-{comment.date.day:02d} {comment.date.hour:02d}:{comment.date.minute:02d}-{comment.date.second:02d}'
     # returns the information related to the comment to the frontend where it is dynamically added
     emit('commented',{'user':comment.user, 'date':date,'content':comment.content}, broadcast=True)
+
+@app.route('/reply')
+def reply():
+    comment_id = int(request.args.get('comment_id'))
+    comment = Comment.query.filter_by(id = comment_id).first()
+    threads = Thread.query.filter_by(comment_id=comment_id).order_by(Thread.date)
+    return render_template("Reply.html", comment=comment, threads=threads)
+
+@socketio.on('join-room')
+def join_room_handler(data):
+    room = int(data.split('=')[-1])
+    print(f"{current_user.name} joined the room:{room}")
+    join_room(room)
+    emit('joined-room', room)
+
+@socketio.on('replied')
+def reply_handler(thread_data):
+    print(thread_data)
+    room = thread_data['thread_room']
+    thread_content = thread_data['thread_content']
+    print(thread_content)
+    thread = add_thread(thread_content, room, current_user.name)
+    date = f'{thread.date.year}-{thread.date.month:02d}-{thread.date.day:02d} {thread.date.hour:02d}:{thread.date.minute:02d}-{thread.date.second:02d}'
+    emit('replied', { 'user':thread.user, 'date':date, 'content':thread.content }, room=room)
 
 @app.route('/log_out')
 @login_required
