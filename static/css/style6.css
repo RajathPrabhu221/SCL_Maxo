@@ -198,3 +198,9 @@ iframe {
     background-color: black;
     color:yellow;
   }
+
+  #logo{
+    width: 25px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+  }
