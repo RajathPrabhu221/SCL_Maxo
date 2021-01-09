@@ -308,9 +308,12 @@ def reply():
 
 @socketio.on('join-room')
 def join_room_handler(data):
+    # gets the room id from the data sent by frontend
     room = int(data.split('=')[-1])
     print(f"{current_user.name} joined the room:{room}")
+    # adds the user to the room specified by room id
     join_room(room)
+    # emits  the joined room event
     emit('joined-room', room)
 
 @socketio.on('replied')
