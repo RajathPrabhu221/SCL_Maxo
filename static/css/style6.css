@@ -201,6 +201,7 @@ iframe {
 
   #logo{
     width: 25px;
-    border-radius: 6px;
+    margin-right: 5px;
+    border-radius: 5px;
     margin-bottom: 5px;
   }
