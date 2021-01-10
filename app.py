@@ -336,6 +336,11 @@ def log_out():
     # logs a user out
     logout_user()
     return redirect(url_for('index'))
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404 page.html')
+
 #-------------------------------Execution starts here------------------------------------------------
 if __name__ == '__main__':
     # creates the database with columns specified by the Users database model if it already does not exist
