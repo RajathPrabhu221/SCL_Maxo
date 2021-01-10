@@ -143,11 +143,11 @@ def validate_user(user_email, user_password):
 
 # checks whether the extension of a file is a valid extension  
 def validate_extension(file_name):
-    valid_extensions = ['pdf','ppt']
+    valid_extensions = ['pdf']
     # splits the file name at '.'
     file_extension = file_name.split('.')
     # returns true if its a valid extension eles return false
-    if file_extension[-1] in valid_extensions and len(file_extension) < 3:
+    if file_extension[-1].lower() in valid_extensions and len(file_extension) < 3:
         return True
     return False
 
@@ -241,15 +241,21 @@ def upload():
         topic_name = request.form.get('topic')
         # gets the pdf file uploaded in the form
         pdf_file = request.files.get('pdf_file')
-        # saves the pdf file in the set folder with path as above
-        pdf_file.save(os.path.join(app.config['PDF_FOLDER_PATH'], secure_filename(pdf_file.filename)))
-        # gets the path of the pdf file where it will be saved 
-        path_of_pdf = "uploads/" + secure_filename(pdf_file.filename)
-        # adds the meeting details to the meet database
-        add_meeting(meet_name, subject_name, topic_name, path_of_pdf)
-        time = datetime.datetime.now()
-        print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] NEW MEETING CREATED MEET NAME:{meet_name} SUBJECT:{subject_name} TOPIC:{topic_name}")
-        return redirect(url_for('meet', meet_name=meet_name))
+        # validates if the file is a pdf
+        if validate_extension(secure_filename(pdf_file.filename)):
+            # saves the pdf file in the set folder with path as above
+            pdf_file.save(os.path.join(app.config['PDF_FOLDER_PATH'], secure_filename(pdf_file.filename)))
+            # gets the path of the pdf file where it will be saved 
+            path_of_pdf = "uploads/" + secure_filename(pdf_file.filename)
+            # adds the meeting details to the meet database
+            add_meeting(meet_name, subject_name, topic_name, path_of_pdf)
+            time = datetime.datetime.now()
+            print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] NEW MEETING CREATED MEET NAME:{meet_name} SUBJECT:{subject_name} TOPIC:{topic_name}")
+            return redirect(url_for('meet', meet_name=meet_name))
+        # if the file is not a pdf a message is sent to the user
+        else:
+            flash("Please upload only pdf files")
+            return render_template('upload.html')
     else:
         return render_template('upload.html')
 
