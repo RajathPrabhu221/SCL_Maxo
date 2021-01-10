@@ -26,8 +26,10 @@ $(document).ready(function(){
     $('#cancel').on('click', show_hide);
     $('#submit').on('click', show_hide);
 
+    // connects to a socket
     socket = io.connect('http://127.0.0.1:5000')
 
+    // emits the join room event which is used to add the user to a room in the backend
     socket.emit('join-room', window.location.href);
     
     socket.on('connect',function(){
