@@ -53,11 +53,17 @@ $(document).ready(function(){
     socket.on('replied',function(data){
         $('.thread-container').append(
             `<div class="comment">
-                <div class="user">${data.user}</div>
-                <div class="date">${data.date}</div>
-                <div class="content">
-                    <h5>${data.content}</h5>
-                </div>
+            <div class="details">
+                <span class="user">
+                <h4>${data.user}</h4>
+                </span>
+                <span class="date">
+                    <h6>${data.date}</h6>
+                </span>
+            </div>
+            <hr>
+            <div class="content">
+                <h5>${data.content}</h5>
             </div>`);
     });
     
