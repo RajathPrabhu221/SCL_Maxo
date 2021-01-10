@@ -14,7 +14,7 @@ $(document).ready(function(){
 
     socket.on('commented',function(data){
         $('.comment-container').append(
-            `<a href="/reply?comment_id={{comment.id}}">    
+            `<a href="/reply?comment_id=${data.id}">    
                 <div class="comment">
                     <div class="details">
                         <span class="user">
