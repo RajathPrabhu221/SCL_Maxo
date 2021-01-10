@@ -16,3 +16,12 @@ body,html{
 	left: 0;
 	border: 1px solid #000000;
   }
+  
+  .image2 {
+	position: absolute;
+	width: 40%;
+	height: 40%;
+	top: 170px;
+	left:31%;
+	border: 1px solid #000000;
+  }
