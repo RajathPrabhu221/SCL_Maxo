@@ -20,7 +20,18 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" method="POST" action="/upload" enctype="multipart/form-data">
-					
+					{% with messages = get_flashed_messages() %}
+						{% if messages %}
+							{% for message in messages %}
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<strong>{{message}}</strong>
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true"> &times; </span>
+									</button>
+								</div>
+							{% endfor %}
+						{% endif %}
+					{% endwith %}
 					<div class="wrap-input100">
 							<input class="input100" type="text" name="meet_name" placeholder="Meeting name" required="This section is required">
 							<span class="focus-input100"></span>
