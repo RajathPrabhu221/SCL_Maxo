@@ -22,12 +22,15 @@
         {% for comment in comments %}
             <a href="/reply?comment_id={{comment.id}}">    
                 <div class="comment">
-                    <div class="user">
-                        {{comment.user}}
+                    <div class="details">
+                        <span class="user">
+                        <h4>{{comment.user}}</h4>
+                        </span>
+                        <span class="date">
+                            <h6>{{comment.date}}</h6>
+                        </span>
                     </div>
-                    <div class="date">
-                        {{comment.date}}
-                    </div>
+                    <hr>
                     <div class="content">
                         <h5>{{comment.content}}</h5>
                     </div>
