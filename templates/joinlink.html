@@ -27,7 +27,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="static/images/meet.png" alt="IMG">
+					<img src="{{url_for('static',filename='images/meet.png')}}" alt="IMG">
 				</div>
 				<form class="login100-form validate-form" action="/join" method="POST">
 					<span class="login100-form-title">
@@ -49,7 +49,7 @@
 					</div>
 				</form>
 				<span class="team" id="name">
-					<a href="home.html"><img src="{{url_for('static',filename='images/Final-Logo.png')}}" alt="Logo" class="logo" id="logo">Ne-Meet</a>
+					<a href="{{url_for('home')}}"><img src="{{url_for('static',filename='images/Final-Logo.png')}}" alt="Logo" class="logo" id="logo">Ne-Meet</a>
 			    </span>
 
 			</div>
@@ -60,21 +60,21 @@
 
 	
                         <!-- jQuery library-->	
-	<script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="{{url_for('static', filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
                    <!-- Latest compiled Javascript-->
-	<script src="static/vendor/bootstrap/js/popper.js"></script>
-	<script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="{{url_for('static',filename='vendor/bootstrap/js/popper.js')}}"></script>
+	<script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="static/vendor/select2/select2.min.js"></script>
+	<script src="{{url_for('static', filename='vendor/select2/select2.min.js')}}"></script>
                         <!-- jQuery library-->
-	<script src="static/vendor/tilt/tilt.jquery.min.js"></script>
+	<script src="{{url_for('static', filename='vendor/tilt/tilt.jquery.min.js')}}"></script>
 	<script >
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
 	</script>
        <!-- Latest compiled Javascript -->
-	<script src="static/js/main.js"></script>
+	<script src="{{url_for('static', filename='js/main.js')}}"></script>
 
 </body>
 </html>
