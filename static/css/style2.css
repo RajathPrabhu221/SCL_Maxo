@@ -452,3 +452,8 @@ iframe {
     opacity: 1;
   }
 }
+
+#logo{
+  width: 30px;
+  margin-right: 5px;
+}
