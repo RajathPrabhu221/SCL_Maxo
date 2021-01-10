@@ -18,27 +18,33 @@
                 <h2 class="heading" id="name"><img src="{{url_for('static',filename='images/Final-Logo.png')}}" alt="Logo" class="logo" id="logo">Ne-Meet</h2>
         </a>
         <h2 class="heading" id="title">Discussion prompt</h2>
-    </div>
+    </div>    
     <div class="comment">
-        <div class="user">
-            {{comment.user}}
+        <div class="details">
+            <span class="user">
+            <h4>{{comment.user}}</h4>
+            </span>
+            <span class="date">
+                <h6>{{comment.date}}</h6>
+            </span>
         </div>
-        <div class="date">
-            {{comment.date}}
-        </div>
+        <hr>
         <div class="content">
             <h5>{{comment.content}}</h5>
         </div>
     </div>
     <div class="thread-container">
-        {% for thread in threads %}    
+        {% for thread in threads %}       
             <div class="comment">
-                <div class="user">
-                    {{thread.user}}
+                <div class="details">
+                    <span class="user">
+                    <h4>{{thread.user}}</h4>
+                    </span>
+                    <span class="date">
+                        <h6>{{thread.date}}</h6>
+                    </span>
                 </div>
-                <div class="date">
-                    {{thread.date}}
-                </div>
+                <hr>
                 <div class="content">
                     <h5>{{thread.content}}</h5>
                 </div>
