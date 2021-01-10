@@ -42,7 +42,7 @@ A video conference app oriented towards better digital education. The app provid
     source venv/bin/activate
     ```
    
-   If you are giving a different name to `venv`, then please mention it in `.gitigonre` first
+   If you are giving a different name to `venv`, then please mention it in `.gitigonre` as well
 
 3. Install all the requirements
 
