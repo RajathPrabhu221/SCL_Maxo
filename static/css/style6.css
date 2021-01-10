@@ -192,11 +192,24 @@ iframe {
     padding: 5% 5%;
   }
 
+  .details{
+    display: inline;
+  }
+
+  .date h6{
+    display: inline;
+  }
+
+  .user h4{
+    display: inline;
+  }
+
   .comment{
     margin: 2% 2%;
     padding: 2% 2%;
-    background-color: black;
+    background-color:grey;
     color:yellow;
+    border-radius: 10px;
   }
 
   #logo{
