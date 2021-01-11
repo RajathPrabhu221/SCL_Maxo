@@ -24,7 +24,7 @@
          <li><a href="#installation">Installation</a></li>
         </ul>
      </li>
-     <li><a href="#contributing">Contributing / Adding features</a></li>
+     <li><a href="#contribution">Contribution</a></li>
          
        
    </ol>
