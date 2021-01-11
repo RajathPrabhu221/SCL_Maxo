@@ -13,13 +13,13 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a>About The Project</a>
       <ul>
        <li><a href="#project-description">Project Description</a></li>
        </ul>
      </li>
      <li>
-       <a href="#getting-started">Getting Started</a>
+       <a>Getting Started</a>
        <ul>
          <li><a href="#installation">Installation</a></li>
         </ul>
