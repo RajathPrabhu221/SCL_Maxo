@@ -1,5 +1,12 @@
 
- # Ne-Meet <img src="static/images/Final-Logo.png" border="0" width= 50>
+ 
+
+<p align="center"> 
+  <img src="static/images/Ayusheer-logo.png" alt="Ayusheer-lOGO" border="0" width=300 height=300/>&nbsp;
+  
+  A project by team Ayusheer as part of SCL-Maxo organized by World Konkani Centre </p>
+
+# Ne-Meet <img src="static/images/Final-Logo.png" border="0" width= 50>
  
 A video conference app oriented towards better digital education. The app provides seamless video streaming with quality notes running at the same time. This is completely inclined towards the betterment of the students.
 
