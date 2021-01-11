@@ -2,9 +2,9 @@
  
 
 <p align="center"> 
-  <img src="static/images/Ayusheer-logo.png" alt="Ayusheer-lOGO" border="0" width=300 height=300/>&nbsp;
+  <img src="static/images/Ayusheer-logo.png" alt="Ayusheer-lOGO" border="0" width=300 height=300/>&nbsp; </p>
   
-  A project by team Ayusheer as part of SCL-Maxo organized by World Konkani Centre </p>
+<p align="center">A project by team Ayusheer as part of SCL-Maxo organized by World Konkani Centre </p>
 
 </br>
 
