@@ -10,9 +10,9 @@
 <body>
     <div class="parent">
          <!-- This is 404 background image-->
-        <img class="image1" src="images/error_bg.png" alt="Background Image"/> 
+        <img class="image1" src="{{url_for('static',filename='images/error_bg.png')}}" alt="Background Image"/> 
          <!-- This is the gif in  the background -->
-        <img class="image2" src="images/error.gif" alt="Error gif"/>
+        <img class="image2" src="{{url_for('static',filename='images/error.gif')}}" alt="Error gif"/>
       </div>
 </body>
 </html>
