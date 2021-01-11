@@ -102,4 +102,12 @@ A video conference app oriented towards better digital education. The app provid
    
 5.  Execute ```bash python app.py ``` to start the server
 
-6. Raise an issue in case of development and send us a PR
+## Contribution
+
+All sorts of contribution are welcome. It would be our pleasure if you can contribute to us in some way. 
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b 'mybranch'`)
+3. Commit your Changes (`git commit -m 'updated something cool'`)
+4. Push to the Branch (`git push origin mybranch`)
+5. Open a Pull Request
