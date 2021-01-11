@@ -8,6 +8,22 @@
 
 </br>
 
+
+  <h2 align="center">Ne-Meet</h2>
+  <p align="center">
+   Classes made easy!
+    <br />
+    <a href="#documentation"><strong>Documentation</strong></a>
+    <br />
+    <br />
+    <a href="" rel="">View a Live Demo</a>
+    · 
+    <a href="https://github.com/RajathPrabhu221/SCL_Maxo/issues/new">Report a Bug</a>
+    ·
+    <a href="https://github.com/RajathPrabhu221/SCL_Maxo/issues/new">Request a Feature</a>
+  </p>
+</p>
+
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
