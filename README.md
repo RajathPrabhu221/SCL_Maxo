@@ -124,6 +124,4 @@ All sorts of contribution are welcome. It would be our pleasure if you can contr
 
 1. Fork the Project
 2. Create your own branch(`git checkout -b 'mybranch'`)
-3. Commit your changes (`git commit -m 'updated something cool'`)
-4. Push to the branch (`git push origin mybranch`)
-5. Open a Pull Request
+3. Open a Pull Request
