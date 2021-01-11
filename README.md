@@ -116,7 +116,7 @@ A video conference app oriented towards better digital education. The app provid
    PDF_UPLOAD='absolute path to the folder where the pdfs are to be saved'
    ```
    
-5.  Execute ```bash python app.py ``` to start the server
+5.  Execute ```python app.py ``` to start the server
 
 ## Contribution
 
