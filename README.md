@@ -6,11 +6,38 @@
   
   A project by team Ayusheer as part of SCL-Maxo organized by World Konkani Centre </p>
 
+</br>
+
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+       <li><a href="#project-description">Project Description</a></li>
+       </ul>
+     </li>
+     <li>
+       <a href="#getting-started">Getting Started</a>
+       <ul>
+         <li><a href="#installation">Installation</a></li>
+        </ul>
+     </li>
+     <li><a href="#contributing">Contributing / Adding features</a></li>
+         
+       
+   </ol>
+ </details>
+
+
+
+
+## Project Description
+
 # Ne-Meet <img src="static/images/Final-Logo.png" border="0" width= 50>
  
 A video conference app oriented towards better digital education. The app provides seamless video streaming with quality notes running at the same time. This is completely inclined towards the betterment of the students.
-
-## Project Description
 
 #### Languages Used:
 
