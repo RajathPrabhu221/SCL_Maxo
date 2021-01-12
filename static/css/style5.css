@@ -169,3 +169,8 @@ iframe {
   border-radius: 5px;
   margin-bottom: 5px;
 }
+
+.modal-content{
+  height: 600px;
+}
+
