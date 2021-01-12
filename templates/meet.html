@@ -4,8 +4,8 @@
     <title>Meet</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- Icon -->
-	<link rel="icon" type="image/png" href="{{url_for('static', filename='images/Final-Logo.png')}}"/>
+<!-- Icon -->
+<link rel="icon" type="image/png" href="{{url_for('static', filename='images/Final-Logo.png')}}"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css')}}">
 <!--===============================================================================================-->
@@ -16,10 +16,34 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style5.css')}}">
 <!--===============================================================================================-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.4.0/socket.io.js"></script>
 	<script src="https://kit.fontawesome.com/dd768487f5.js" crossorigin="anonymous"></script>
 <!--===============================================================================================-->
 </head>
 <body>
+	  	<!-- Modal -->
+		  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title" id="exampleModalLabel">Quiz</h5>
+					</div>
+					<div class="modal-body" id="quiz-body">
+						<form id="quiz-link">
+							<input type="text" id="form-link" placeholder="quiz link" name="link">
+							<div>
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="close-quiz" data-dismiss="modal" class="btn btn-primary">Close</button>
+					</div>
+				</div>
+				</div>
+			  </div>
+
+
 	<section class="live"></section>
     <nav class="navbar fixed-bottom navbar-expand-sm navbar-light">
     	<a href="#" class="navbar-brand" id="Brand" style="color: #ffffff;"><img src="{{url_for('static',filename='images/Final-Logo.png')}}" alt="Logo" class="logo" id="logo">Ne-Meet</a>
@@ -41,7 +65,7 @@
 	<span onclick="openNav()">
 		<button id="opendoc"><i class="fa fa-file-text-o fa-2x" aria-hidden="true" id="doc"></i></button>
 	</span>
-	
+
 	<div id="meet-wrapper">
 		
 	</div>
@@ -60,21 +84,21 @@
 		}
 	</script>
 <!--===============================================================================================-->
-	<script src="//media.twiliocdn.com/sdk/js/video/releases/2.8.0/twilio-video.min.js"></script>
-                             <!-- jQuery library -->	
-	<script src="{{url_for('static', filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
-                       <!-- Latest compiled javascript -->
-	<script src="{{url_for('static', filename='vendor/bootstrap/js/popper.js')}}"></script>
-	<script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="//media.twiliocdn.com/sdk/js/video/releases/2.8.0/twilio-video.min.js"></script>
+<!-- jQuery library -->	
+<script src="{{url_for('static', filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+<!-- Latest compiled javascript -->
+<script src="{{url_for('static', filename='vendor/bootstrap/js/popper.js')}}"></script>
+<script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="{{url_for('static', filename='vendor/select2/select2.min.js')}}"></script>
-                             <!-- jQuery library -->
-	<script src="{{url_for('static', filename='vendor/tilt/tilt.jquery.min.js')}}"></script>
-	<script src="{{url_for('static', filename='js/video.js')}}"></script>
-	<script>
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
+<script src="{{url_for('static', filename='vendor/select2/select2.min.js')}}"></script>
+<!-- jQuery library -->
+<script src="{{url_for('static', filename='vendor/tilt/tilt.jquery.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/video.js')}}"></script>
+<script>
+$('.js-tilt').tilt({
+scale: 1.1
+})
+</script>
 </body>
 </html>
