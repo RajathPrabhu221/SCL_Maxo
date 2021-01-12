@@ -282,7 +282,8 @@ def api_token_gen():
     grant = VideoGrant(room = room_name)
     token.add_grant(grant)
     # Serializes the token as a JWT(json web token) i.e converts token to json which can be returned to the frontend
-    jwt = token.to_jwt().decode()
+    print(token)
+    jwt = token.to_jwt()
     time = datetime.datetime.now()
     print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] TOKEN GENERATED USER:{user_name} ROOM:{room_name}")    
     # return both the token and room name as a json
