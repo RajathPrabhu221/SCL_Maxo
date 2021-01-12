@@ -18,41 +18,41 @@
         </a>
          <h2 class="heading" id="title">Discussion prompt</h2>
      </div>
-    <div class="comment-container">
-        {% for comment in comments %}
-            <a href="/reply?comment_id={{comment.id}}">    
-                <div class="comment">
-                    <div class="details">
-                        <span class="user">
-                        <h4>{{comment.user}}</h4>
-                        </span>
-                        <span class="date">
-                            <h6>{{comment.date}}</h6>
-                        </span>
+        <div class="comment-container">
+            {% for comment in comments %}
+                <a href="/reply?comment_id={{comment.id}}">    
+                    <div class="comment">
+                        <div class="details">
+                            <span class="user">
+                            <h4>{{comment.user}}</h4>
+                            </span>
+                            <span class="date">
+                                <h6>{{comment.date}}</h6>
+                            </span>
+                        </div>
+                        <hr>
+                        <div class="content">
+                            <h5>{{comment.content}}</h5>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="content">
-                        <h5>{{comment.content}}</h5>
-                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="container">
+            <form id="comment_form">
+                <div id="post-comment" class="form-group">
+                    <textarea name="comment_content" id="comment_content" class="form-control" placeholder="Enter Comment" rows="5"></textarea>
                 </div>
-            </a>
-        {% endfor %}
-    </div>
-     <div class="container">
-         <form id="comment_form">
-             <div id="post-comment" class="form-group">
-                 <textarea name="comment_content" id="comment_content" class="form-control" placeholder="Enter Comment" rows="5"></textarea>
-             </div>
-             <div class="comment-submit-btn">
-                <button type="submit" class="submit" id="reply">
-                  Submit
-                </button>
-            </div>
-        </form>
-         <span id="comment_message"></span>
-         <br />
-         <div id="display_comment"></div>
-     </div>
+                <div class="comment-submit-btn">
+                    <button type="submit" class="submit" id="reply">
+                    Submit
+                    </button>
+                </div>
+            </form>
+            <span id="comment_message"></span>
+            <br />
+            <div id="display_comment"></div>
+        </div>
  </body>
 </html>
 

@@ -15,7 +15,6 @@ body, html {
 #top{
     background-color: #294463;
     height: 150px;
-    margin: 0px 20px 20px 20px;
 }
 
 .heading{
@@ -183,7 +182,6 @@ iframe {
     -moz-transition: all 0.4s;
   }
   
-
   .date{
     float: right;
   }
@@ -217,4 +215,9 @@ iframe {
     margin-right: 5px;
     border-radius: 5px;
     margin-bottom: 5px;
+  }
+
+  html, body{
+    height: 100vh;
+    background-color:#347ebd ;
   }

@@ -1,7 +1,6 @@
 <html>
  <head>
-     <title>Discussion</title>
-     <title>Discussion</title>
+     <title>Reply</title>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.4.0/socket.io.js"></script>
      <script src="{{url_for('static', filename='vendor/jquery/jquery-3.2.1.min.js')}}"></script>
@@ -19,37 +18,39 @@
         </a>
         <h2 class="heading" id="title">Discussion prompt</h2>
     </div>    
-    <div class="comment">
-        <div class="details">
-            <span class="user">
-            <h4>{{comment.user}}</h4>
-            </span>
-            <span class="date">
-                <h6>{{comment.date}}</h6>
-            </span>
-        </div>
-        <hr>
-        <div class="content">
-            <h5>{{comment.content}}</h5>
-        </div>
-    </div>
-    <div class="thread-container">
-        {% for thread in threads %}       
-            <div class="comment">
-                <div class="details">
-                    <span class="user">
-                    <h4>{{thread.user}}</h4>
-                    </span>
-                    <span class="date">
-                        <h6>{{thread.date}}</h6>
-                    </span>
-                </div>
-                <hr>
-                <div class="content">
-                    <h5>{{thread.content}}</h5>
-                </div>
+    <div class="answer" id="background">
+        <div class="comment">
+            <div class="details">
+                <span class="user">
+                <h4>{{comment.user}}</h4>
+                </span>
+                <span class="date">
+                    <h6>{{comment.date}}</h6>
+                </span>
             </div>
-        {% endfor %}
+            <hr>
+            <div class="content">
+                <h5>{{comment.content}}</h5>
+            </div>
+        </div>
+        <div class="thread-container">
+            {% for thread in threads %}       
+                <div class="comment">
+                    <div class="details">
+                        <span class="user">
+                        <h4>{{thread.user}}</h4>
+                        </span>
+                        <span class="date">
+                            <h6>{{thread.date}}</h6>
+                        </span>
+                    </div>
+                    <hr>
+                    <div class="content">
+                        <h5>{{thread.content}}</h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
     <div class="container" id="response_section">
         <textarea name="comment_content" id="response" style="display: none;"  class="form-control" placeholder="Enter your response" rows="5"></textarea>
