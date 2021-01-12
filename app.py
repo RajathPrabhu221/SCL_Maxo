@@ -51,8 +51,8 @@ app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'ayusheer10@gmail.com'
-app.config['MAIL_PASSWORD'] = 'gddstlqskqyyperx'
+app.config['MAIL_USERNAME'] = ''
+app.config['MAIL_PASSWORD'] = ''
 mail = Mail(app)
 
 # defining User database model
@@ -195,7 +195,7 @@ def verify_reset_token(token):
 
 def send_reset_email(user_id, user_email):
     token = get_reset_token(user_id)
-    msg = Message('Password Reset Request', sender= 'ayusheer10@gmail.com',recipients=[user_email])
+    msg = Message('Password Reset Request', sender= '',recipients=[user_email])
     msg.body = f'''To reset your password, visit the following link:
 {url_for('change_password',token=token, _external=True)}'''   
     mail.send(msg)
