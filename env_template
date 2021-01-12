@@ -9,3 +9,7 @@ SECRET_KEY='your secret key'
 DATABASE_INFO='mysql://usernmame:password@server/database'
 
 PDF_UPLOAD='absolute path to the folder where the pdfs are to be saved'
+
+# mail credentials
+MAIL_ID='your mail id'
+MAIL_PASSWORD='your mail password'
