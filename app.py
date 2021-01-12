@@ -10,6 +10,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from flask_login import LoginManager, UserMixin, login_user, current_user, login_required, logout_user
 from flask_socketio import SocketIO, emit, join_room
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask_mail import Mail, Message
+
 
 # Reads the key-value pair from .env file and adds them to environment variable
 load_dotenv()
@@ -42,6 +45,15 @@ app.config['PDF_FOLDER_PATH'] = os.environ.get('PDF_UPLOAD')
 
 # socketio object
 socketio = SocketIO(app)
+
+# mail credentials
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'ayusheer10@gmail.com'
+app.config['MAIL_PASSWORD'] = 'gddstlqskqyyperx'
+mail = Mail(app)
 
 # defining User database model
 class User(db.Model, UserMixin):
@@ -101,7 +113,7 @@ class Thread(db.Model):
 # adds new user to the User database
 def add_user(username, email, password):
     print(f"Username:{username}, Email:{email}, Password:{password}")
-    # checks if the user already exists before adding to the table
+    # checks if the user already exists before adding to the table, is same as -> select * from users where email = email;
     check_user = User.query.filter_by(email=email).first()
     if check_user != None:
         return False
@@ -167,6 +179,27 @@ def add_thread(thread_content, comment_id, user_name):
     db.session.add(thread)
     db.session.commit()
     return thread
+
+def get_reset_token(user_id):
+    serializer = Serializer(app.config['SECRET_KEY'], 1000)
+    token = serializer.dumps({'id':user_id}).decode('utf-8')
+    return token
+
+def verify_reset_token(token):
+    serializer = Serializer(app.config['SECRET_KEY'])
+    try:
+        user_id = serializer.loads(token)['id']
+    except:
+        return None
+    return user_id
+
+def send_reset_email(user_id, user_email):
+    token = get_reset_token(user_id)
+    msg = Message('Password Reset Request', sender= 'ayusheer10@gmail.com',recipients=[user_email])
+    msg.body = f'''To reset your password, visit the following link:
+{url_for('change_password',token=token, _external=True)}'''   
+    mail.send(msg)
+    return
 
 # gets the session id of the particular user with the id provided to the function
 @login_manager.user_loader
@@ -242,6 +275,10 @@ def upload():
         # gets the pdf file uploaded in the form
         pdf_file = request.files.get('pdf_file')
         # validates if the file is a pdf
+        meet = Meet.query.filter_by(name=meet_name).first()
+        if meet != None:
+            flash("Please create a meeting with different name. This meeting already exists")
+            return render_template('upload.html')
         if validate_extension(secure_filename(pdf_file.filename)):
             # saves the pdf file in the set folder with path as above
             pdf_file.save(os.path.join(app.config['PDF_FOLDER_PATH'], secure_filename(pdf_file.filename)))
@@ -309,7 +346,7 @@ def reply():
     comment_id = int(request.args.get('comment_id'))
     # gets the comment corresponding to the 
     comment = Comment.query.filter_by(id = comment_id).first()
-    # gets all the threads(replies) corresponding to the above comment, same as -> select * from threads where comment_id=comment_id order by date;
+    # gets all the threads(replies) corresponding to the above comment, same as -> SELECT * FROM threads WHERE comment_id=comment_id ORDER BY date;
     threads = Thread.query.filter_by(comment_id=comment_id).order_by(Thread.date)
     # the comment and the replies are rendered
     return render_template("Reply.html", comment=comment, threads=threads)
@@ -321,7 +358,7 @@ def join_room_handler(data):
     print(f"{current_user.name} joined the room:{room}")
     # adds the user to the room specified by room id
     join_room(room)
-    # emits  the joined room event
+    # emits  the joined room event back to the user
     emit('joined-room', room)
 
 @socketio.on('replied')
@@ -339,9 +376,58 @@ def reply_handler(thread_data):
 @app.route('/log_out')
 @login_required
 def log_out():
-    # logs a user out
+    # logs out an user
     logout_user()
     return redirect(url_for('index'))
+
+@app.route('/reset', methods=['GET', 'POST'])
+def reset():
+    if request.method == 'POST':
+        recovery_email = request.form.get('email')
+        user = User.query.filter_by(email=recovery_email).first()
+        if user != None:
+            send_reset_email(user.id, user.email)
+            flash('Please check your email')
+            return render_template('new_password.html')
+        else:
+            flash('There is no account with that email. You must register first.')
+            return render_template('password_reset.html')
+    else:
+        return render_template('password_reset.html')
+
+@app.route('/change_password/<token>', methods=['GET', 'POST'])
+def change_password(token):
+    user_id  = verify_reset_token(token)
+    if request.method == 'POST':
+        if user_id != None:
+            new_password = request.form.get('password')
+            print(f'New password is {new_password}')
+            user = User.query.filter_by(id=user_id).first()
+            user.password = generate_password_hash(new_password)
+            db.session.commit()
+            flash('Password updated', category='success')
+            return redirect(url_for('index'))
+        else:
+            flash("The password link expired, please send the request again")
+            return redirect(url_for('reset'))
+    else: 
+        if user_id != None:
+            return render_template('new_password.html')
+        else :
+            flash("The password link expired, please send the request again")
+            return redirect(url_for('reset'))
+
+@socketio.on('join-video-room')
+def video_room_handler(video_room_data):
+    room = video_room_data.split('/')[-1]
+    join_room(room)
+    emit('joined-video-room', room)
+
+@socketio.on('quiz')
+def quiz_handler(quiz_data):
+    room = quiz_data['room']
+    quiz_link = quiz_data['link']
+    emit('quiz', quiz_link, room=room)
 
 @app.errorhandler(404)
 def page_not_found(e):
