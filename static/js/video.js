@@ -11,6 +11,7 @@ var video_connected = false;
 var audio_connected = false;
 var connected = false;
 var room;
+var quiz_room;
 
 // publishes the media of the local participant
 function add_local_media() {
@@ -202,6 +203,34 @@ function disconnect() {
     connect_room_btn.innerHTML = 'Join Meeting';
 }
 
+socket = io.connect('http://127.0.0.1:5000')
+
+socket.on('connect', function(){
+    console.log('connected');
+});
+
+socket.emit('join-video-room', window.location.href)
+
+socket.on('joined-video-room', function(room_data){
+    quiz_room = room_data;
+    console.log('joined room' + quiz_room);
+});
+
 connect_room_btn.addEventListener('click',connectButtonHandler);
 audio_btn.addEventListener('click',audio_handler);
 video_btn.addEventListener('click',video_handler);
+
+$('#quiz-link').on('submit',function(e){
+    e.preventDefault();
+    socket.emit('quiz',{  'room' : quiz_room ,'link' : $('#form-link').val() });
+});
+
+$('#a3').on('click', function(e){
+    e.preventDefault();
+    $('#exampleModal').modal('show');
+});
+
+socket.on('quiz', function(form_link){
+    $("#quiz-body").html(`<iframe src="${form_link}" width="100%" height="100%"></iframe>`);
+    $('#exampleModal').modal('toggle');
+});
