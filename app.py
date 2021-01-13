@@ -369,7 +369,7 @@ def reply_handler(thread_data):
     thread_content = thread_data['thread_content']
     # adds the thread to the database
     thread = add_thread(thread_content, room, current_user.name)
-    date = f'{thread.date.year}-{thread.date.month:02d}-{thread.date.day:02d} {thread.date.hour:02d}:{thread.date.minute:02d}-{thread.date.second:02d}'
+    date = f'{thread.date.year}-{thread.date.month:02d}-{thread.date.day:02d} {thread.date.hour:02d}:{thread.date.minute:02d}:{thread.date.second:02d}'
     # emits replied event which updates the reply in the frontend
     emit('replied', { 'user':thread.user, 'date':date, 'content':thread.content }, room=room)
 
