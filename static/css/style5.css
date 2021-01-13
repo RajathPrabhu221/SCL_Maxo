@@ -174,3 +174,19 @@ iframe {
   height: 600px;
 }
 
+video{
+  height: 100%;
+  width: 100%;
+}
+
+#meet-wrapper{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.participant{
+  height: 400px;
+  width: 400px;
+}
