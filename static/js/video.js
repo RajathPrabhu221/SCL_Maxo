@@ -18,11 +18,15 @@ function add_local_media() {
     let local_media_container = document.createElement('div');
     local_media_container.setAttribute('id', 'local');
     local_media_container.setAttribute('class', 'participant');
-        
+    let local = document.createElement('div');
     Twilio.Video.createLocalTracks().then(function(localTracks) {
         localTracks.forEach(function(track) {
-          local_media_container.appendChild(track.attach());
+          local.appendChild(track.attach());
         });
+        local_media_container.appendChild(local);
+        let local_name = document.createElement('div');
+        local_name.innerHTML = 'you';
+        local_media_container.appendChild(local_name);
       });
     video_element.appendChild(local_media_container);
 }
