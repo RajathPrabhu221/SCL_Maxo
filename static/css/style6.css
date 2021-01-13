@@ -13,8 +13,14 @@ body, html {
 }
 
 #top{
-    background-color: #294463;
-    height: 150px;
+    background-color: #57b846;
+    height: 100px;
+}
+
+#top:hover{
+  background-color: #F8CF40;
+  transition: 0.5s;
+  box-shadow: 20px 20px 10px rgba(0, 0, 0, 0.31);
 }
 
 .heading{
@@ -32,7 +38,7 @@ body, html {
 
 #title{
     position: relative;
-    top: 20px;
+    top: 5px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -149,7 +155,7 @@ iframe {
   }
 
   #comment_name, #comment_content, #response{
-    background-color: #d8d4d4;
+    background-color: #ffffff;
   }
 
   #comment_name:focus, #comment_content:focus , #response:focus {
@@ -205,8 +211,8 @@ iframe {
   .comment{
     margin: 2% 2%;
     padding: 2% 2%;
-    background-color:grey;
-    color:yellow;
+    background-color:#22BDBE;
+    color:#ffffff;
     border-radius: 10px;
   }
 
@@ -219,5 +225,22 @@ iframe {
 
   html, body{
     height: 100vh;
-    background-color:#347ebd ;
+    background-color:#143254 ;
+  }
+
+  @media (max-width: 576px) {
+    #name{
+      position:relative;
+      left: 5px;
+      top: 7px;
+    }
+
+    #top{
+      height: 120px;
+    }
+
+    #title{
+      position: relative;
+      top: 20px;
+    }
   }
