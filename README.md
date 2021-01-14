@@ -56,16 +56,16 @@
 A video conference app oriented towards better digital education. The app provides seamless video streaming with quality notes running at the same time. This is completely inclined towards the betterment of the students.
 
 #### Technologies Used:
-
-1) Python <a href="https://www.python.org/" ><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/python%20logo.png" width= 30></a>
-2) HTML <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img src="static/images/HTML%20logo%20Modified.png" width= 30></a>
-3) CSS  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/CSS%20logo.png" width= 30></a>
+<pre>
+1) Python      <a href="https://www.python.org/" ><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/python%20logo.png" width= 30></a>
+2) HTML        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img src="static/images/HTML%20logo%20Modified.png" width= 30></a>
+3) CSS         <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/CSS%20logo.png" width= 30></a>
 4) Java Script <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="static/images/javascript%20modified.png" width= 30></a>
-5) Flask <a href="https://flask.palletsprojects.com/en/1.1.x/"><img src="static/images/Flask%20logo%20Modified.jpg" width= 35></a>
-6) Twilio <a href="https://www.twilio.com/docs/video/javascript-getting-started"><img src="https://github.com/RajathPrabhu221/SCL_Maxo/blob/main/static/images/Twilio%20logo%20Modified.png" width= 40></a>
-7) Socket-io <a href="https://socket.io/"><img src="static/images/Socket-io.svg" width= 35></a>
-8) MySQL <a href="https://www.mysql.com/"><img src="static/images/my%20sql.png" width= 50></a>
-
+5) Flask       <a href="https://flask.palletsprojects.com/en/1.1.x/"><img src="static/images/Flask%20logo%20Modified.jpg" width= 35></a>
+6) Twilio      <a href="https://www.twilio.com/docs/video/javascript-getting-started"><img src="https://github.com/RajathPrabhu221/SCL_Maxo/blob/main/static/images/Twilio%20logo%20Modified.png" width= 40></a>
+7) Socket-io   <a href="https://socket.io/"><img src="static/images/Socket-io.svg" width= 35></a>
+8) MySQL       <a href="https://www.mysql.com/"><img src="static/images/my%20sql.png" width= 50></a>
+</pre>
 
 ## Installation 
 
