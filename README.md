@@ -55,7 +55,7 @@
  
 A video conference app oriented towards better digital education. The app provides seamless video streaming with quality notes running at the same time. This is completely inclined towards the betterment of the students.
 
-#### Languages Used:
+#### Technologies Used:
 
 1) Python <a href="https://www.python.org/" ><img src="https://github.com/Sudarshan-Mech/SCL_Maxo/blob/main/static/images/python%20logo.png" width= 30></a>
 2) HTML <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img src="static/images/HTML%20logo%20Modified.png" width= 30></a>
