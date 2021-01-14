@@ -244,3 +244,12 @@ iframe {
       top: 20px;
     }
   }
+
+
+.comment-main{
+    background-color: #F8CF40;
+    margin: 2% 2%;
+    padding: 2% 2%;
+    color:#143254;
+    border-radius: 10px;
+}
