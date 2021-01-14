@@ -2,10 +2,9 @@
  
 
 <p align="center"> 
-  <a href-"https://sushiksha.konkanischolarship.com/team/11">
-   <img src="static/images/Ayusheer-logo.png" alt="Ayusheer-lOGO" border="0" width=300 height=300/>&nbsp; </a></p>
-  
-<p align="center">A project by team Ayusheer as part of SCL-Maxo organized by World Konkani Centre </p>
+ <img src="static/images/Ayusheer-logo.png" alt="Ayusheer-lOGO" border="0" width=300 height=300/>&nbsp; </a></p>
+ 
+ <p align="center">A project by team Ayusheer as part of SCL-Maxo organized by World Konkani Centre </p>
 
 </br>
 
