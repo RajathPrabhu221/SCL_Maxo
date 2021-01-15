@@ -55,7 +55,7 @@ app.config['MAIL_USERNAME'] = os.environ.get('MAIL_ID')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 mail = Mail(app)
 
-# defining structure of the users table
+# defining User database model
 class User(db.Model, UserMixin):
     __tablename__ = "users"
     id = db.Column("id", db.Integer, primary_key=True)
@@ -68,7 +68,6 @@ class User(db.Model, UserMixin):
         self.email = email
         self.password = generate_password_hash(password)
 
-# defining structure of the meet table
 class Meet(db.Model):
     __tablename__ = "meet"
     id = db.Column("id", db.Integer, primary_key=True)
@@ -83,7 +82,6 @@ class Meet(db.Model):
         self.topic = topic
         self.pdf_link = pdf_link
 
-# defining structure of the comments table
 class Comment(db.Model):
     __tablename__ = "comments"
     id = db.Column("id", db.Integer, primary_key=True)
@@ -96,7 +94,6 @@ class Comment(db.Model):
         self.user = user
         self.date = datetime.datetime.now()
 
-# defining structure of the threads table
 class Thread(db.Model):
     __tablename__ = "threads"
     id = db.Column("id", db.Integer, primary_key=True)
@@ -115,17 +112,18 @@ class Thread(db.Model):
 #---------------------- UTIL FUNCTIONS -----------------------
 # adds new user to the User database
 def add_user(username, email, password):
-    check_user = User.query.filter_by(email=email).first()
+    print(f"Username:{username}, Email:{email}, Password:{password}")
     # checks if the user already exists before adding to the table, is same as -> select * from users where email = email;
+    check_user = User.query.filter_by(email=email).first()
     if check_user != None:
         return False
+    time = datetime.datetime.now()
+    print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] ADDED USER:{username} EMAIL:{email}")
     # creates a user object with the given credentials
     user = User(username, email, password)
     # adds the user credentials to the database
     db.session.add(user)
     db.session.commit()
-    time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] ADDED USER:{username} EMAIL:{email}")
     return True
 
 # adds the new meeting to the Meet database
@@ -139,8 +137,6 @@ def add_meeting(meet_name, meet_subject, meet_topic, meet_pdf_link):
     meet = Meet(meet_name, meet_subject, meet_topic, meet_pdf_link)
     db.session.add(meet)
     db.session.commit()
-    time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] MEETING CREATED MEET NAME:{meet_name} SUBJECT:{meet_subject} TOPIC:{meet_topic}")
     return
 
 # checks if the given user email and password are present in the database
@@ -174,8 +170,6 @@ def add_comment(comment_content, user_name):
     # adds the comment object to the database and commits it
     db.session.add(comment)
     db.session.commit()
-    time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] ADDED COMMENT BY USER:{user_name}")
     return comment
 
 def add_thread(thread_content, comment_id, user_name):
@@ -184,15 +178,11 @@ def add_thread(thread_content, comment_id, user_name):
     # adds the thread to the database and commits it
     db.session.add(thread)
     db.session.commit()
-    time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] THREAD ADDED TO COMMENT_ID:{comment_id} USER:{user_name}")
     return thread
 
 def get_reset_token(user_id):
     serializer = Serializer(app.config['SECRET_KEY'], 1000)
     token = serializer.dumps({'id':user_id}).decode('utf-8')
-    time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] PASSWORD RESET TOKEN CREATED FOR USER_ID:{user_id}")
     return token
 
 def verify_reset_token(token):
@@ -205,9 +195,7 @@ def verify_reset_token(token):
 
 def send_reset_email(user_id, user_email):
     token = get_reset_token(user_id)
-    time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] MAIL SENT TO EMAIL:{user_email}")
-    msg = Message('Password Reset Request', sender= 'ayusheer10@gmail.com', recipients=[user_email])
+    msg = Message('Password Reset Request', sender= app.config['MAIL_USERNAME'], recipients=[user_email])
     msg.body = f'''To reset your password, visit the following link:
 {url_for('change_password',token=token, _external=True)}'''   
     mail.send(msg)
@@ -228,7 +216,7 @@ def index():
         validation_result, user_credentials = validate_user(user_email, user_password)
         if validation_result:
             time = datetime.datetime.now()
-            print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] LOGGEDIN:{user_email}")
+            print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] LOGGEDIN:{user_email}")
             # logs in the user
             login_user(user_credentials)
             return redirect(url_for('home'))
@@ -269,7 +257,7 @@ def join():
     if request.method == 'POST':
         meet_name = request.form.get('link')
         time = datetime.datetime.now()
-        print(f"127.0.0.1 - - [{time.day:02d}/{time.strftime('%b')}/{time.year} {time.hour:02d}:{time.minute:02d}:{time.second:02d}] JOINED MEET USER:{current_user.name}")
+        print(f"127.0.0.1 - - [{time.day:02d}/{time.strftime('%b')}/{time.year} {time.hour:02d}:{time.minute:02d}:{time.second:02d}] LOGGEDIN:{current_user.name}")
         return redirect(url_for('meet', meet_name=meet_name))
     else:
         return render_template('joinlink.html')
@@ -299,7 +287,7 @@ def upload():
             # adds the meeting details to the meet database
             add_meeting(meet_name, subject_name, topic_name, path_of_pdf)
             time = datetime.datetime.now()
-            print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] NEW MEETING CREATED MEET_NAME:{meet_name} SUBJECT:{subject_name} TOPIC:{topic_name}")
+            print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] NEW MEETING CREATED MEET NAME:{meet_name} SUBJECT:{subject_name} TOPIC:{topic_name}")
             return redirect(url_for('meet', meet_name=meet_name))
         # if the file is not a pdf a message is sent to the user
         else:
@@ -333,7 +321,7 @@ def api_token_gen():
     # Serializes the token as a JWT(json web token) i.e converts token to json which can be returned to the frontend
     jwt = token.to_jwt().decode()
     time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] TOKEN GENERATED USER:{current_user.name} FOR ROOM:{room_name}")    
+    print(f"127.0.0.1 - - [{time.day}/{time.strftime('%b')}/{time.year} {time.hour}:{time.minute}:{time.second}] TOKEN GENERATED USER:{user_name} ROOM:{room_name}")    
     # return both the token and room name as a json
     return {'token':jwt, 'roomname':room_name}
 
@@ -367,6 +355,7 @@ def reply():
 def join_room_handler(data):
     # gets the room id from the data sent by frontend
     room = int(data.split('=')[-1])
+    print(f"{current_user.name} joined the room:{room}")
     # adds the user to the room specified by room id
     join_room(room)
     # emits  the joined room event back to the user
@@ -387,8 +376,6 @@ def reply_handler(thread_data):
 @app.route('/log_out')
 @login_required
 def log_out():
-    time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] LOGGED OUT USER_ID:{current_user.id}")
     # logs out an user
     logout_user()
     return redirect(url_for('index'))
@@ -401,7 +388,7 @@ def reset():
         if user != None:
             send_reset_email(user.id, user.email)
             flash('Please check your email')
-            return render_template('password_reset.html')
+            return render_template('new_password.html')
         else:
             flash('There is no account with that email. You must register first.')
             return render_template('password_reset.html')
@@ -418,8 +405,6 @@ def change_password(token):
             user = User.query.filter_by(id=user_id).first()
             user.password = generate_password_hash(new_password)
             db.session.commit()
-            time = datetime.datetime.now()
-            print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] NEW PASSWORD SET FOR USER_ID:{user_id}")
             flash('Password updated', category='success')
             return redirect(url_for('index'))
         else:
@@ -442,8 +427,6 @@ def video_room_handler(video_room_data):
 def quiz_handler(quiz_data):
     room = quiz_data['room']
     quiz_link = quiz_data['link']
-    time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] QUIZ STARTED AT ROOM:{room}")
     emit('quiz', quiz_link, room=room)
 
 @app.errorhandler(404)
@@ -452,7 +435,7 @@ def page_not_found(e):
 
 #-------------------------------Execution starts here------------------------------------------------
 if __name__ == '__main__':
-    # creates the database with columns specified by the users, meet, comments and threads  database model if it already does not exist
+    # creates the database with columns specified by the Users database model if it already does not exist
     db.create_all()
     db.session.commit()
     socketio.run(app)
