@@ -45,8 +45,12 @@ $(document).ready(function(){
     // submits the comment entered by the user in the form to the backend 
     $("#submit").on('click', function(e){
         e.preventDefault();
-        socket.emit('replied',{ 'thread_content':$('#response').val(), 'thread_room':room });
-        $('#response').val(' ');
+        str = $('#response').val();
+        if (!(!str || /^\s*$/.test(str)))
+        {
+            socket.emit('replied',{ 'thread_content':$('#response').val(), 'thread_room':room });
+            $('#response').val(' ');
+        }
     });
 
     // gets the reply when a remote users replies and adds it to the html
