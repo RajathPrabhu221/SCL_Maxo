@@ -189,28 +189,39 @@ def add_thread(thread_content, comment_id, user_name):
     return thread
 
 def get_reset_token(user_id):
+    # creates a serializer with a secret key which is used to serialize the id of the user that wants to reset his/her password
     serializer = Serializer(app.config['SECRET_KEY'], 1000)
+    # serializes the user id (i.e encrpyts the user id so that it can be sent to the user through mail which then can be used as a token to verify the user when changing the password)
     token = serializer.dumps({'id':user_id}).decode('utf-8')
     time = datetime.datetime.now()
     print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] PASSWORD RESET TOKEN CREATED FOR USER_ID:{user_id}")
     return token
 
 def verify_reset_token(token):
+    # the secret key is used to decrypt the token through the serializer
     serializer = Serializer(app.config['SECRET_KEY'])
     try:
+        # gets the user id from the token
+        # user id can only be obtained from the token only if the token is verified before expiry else an error is thrown
         user_id = serializer.loads(token)['id']
     except:
+        # if an error is thrown it implies that the token has expired
         return None
+    # token has not expired and contains the user id
     return user_id
 
 def send_reset_email(user_id, user_email):
+    # creates a new token from the user id
     token = get_reset_token(user_id)
-    time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] MAIL SENT TO EMAIL:{user_email}")
+    # sets the mail sender, mail reciever
     msg = Message('Password Reset Request', sender=app.config['MAIL_USERNAME'], recipients=[user_email])
+    # sets the body of the mail
     msg.body = f'''To reset your password, visit the following link:
 {url_for('change_password',token=token, _external=True)}'''   
+    # sends the mail
     mail.send(msg)
+    time = datetime.datetime.now()
+    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] MAIL SENT TO EMAIL:{user_email}")
     return
 
 # gets the session id of the particular user with the id provided to the function
@@ -267,9 +278,11 @@ def home():
 @login_required
 def join():
     if request.method == 'POST':
+        # gets the meet name from the form
         meet_name = request.form.get('link')
         time = datetime.datetime.now()
         print(f"127.0.0.1 - - [{time.day:02d}/{time.strftime('%b')}/{time.year} {time.hour:02d}:{time.minute:02d}:{time.second:02d}] JOINED MEET USER:{current_user.name}")
+        # redirects to the meet with the above meet name
         return redirect(url_for('meet', meet_name=meet_name))
     else:
         return render_template('joinlink.html')
@@ -340,7 +353,7 @@ def api_token_gen():
 @app.route('/discuss', methods = ['GET'])
 @login_required
 def discuss():
-    # same as -> select * from comments order by date;
+    # gets all the comments in the database as per their chronological order, same as -> SELECT * FROM comments ORDER BY date;
     comments = Comment.query.order_by(Comment.date)    
     return render_template('Discuss.html', comments=comments)
 
@@ -358,7 +371,7 @@ def reply():
     comment_id = int(request.args.get('comment_id'))
     # gets the comment corresponding to the 
     comment = Comment.query.filter_by(id = comment_id).first()
-    # gets all the threads(replies) corresponding to the above comment, same as -> SELECT * FROM threads WHERE comment_id=comment_id ORDER BY date;
+    # gets all the threads(replies) corresponding to the above comment as per their chronological order, same as -> SELECT * FROM threads WHERE comment_id=comment_id ORDER BY date;
     threads = Thread.query.filter_by(comment_id=comment_id).order_by(Thread.date)
     # the comment and the replies are rendered
     return render_template("Reply.html", comment=comment, threads=threads)
@@ -388,7 +401,7 @@ def reply_handler(thread_data):
 @login_required
 def log_out():
     time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] LOGGED OUT USER_ID:{current_user.id}")
+    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] LOGGED OUT USER:{current_user.name}")
     # logs out an user
     logout_user()
     return redirect(url_for('index'))
@@ -396,13 +409,17 @@ def log_out():
 @app.route('/reset', methods=['GET', 'POST'])
 def reset():
     if request.method == 'POST':
+        # gets the recovery email from the form
         recovery_email = request.form.get('email')
         user = User.query.filter_by(email=recovery_email).first()
+        # checks if a user with the above email is present
         if user != None:
+            # if user exists, a password reset mail is sent
             send_reset_email(user.id, user.email)
             flash('Please check your email')
             return render_template('password_reset.html')
         else:
+            # if no such user exits, then a warning is sent
             flash('There is no account with that email. You must register first.')
             return render_template('password_reset.html')
     else:
@@ -410,13 +427,17 @@ def reset():
 
 @app.route('/change_password/<token>', methods=['GET', 'POST'])
 def change_password(token):
+    # verifies the token and gets the user id from it
     user_id  = verify_reset_token(token)
     if request.method == 'POST':
         if user_id != None:
+            # gets the new password from the form
             new_password = request.form.get('password')
-            print(f'New password is {new_password}')
+            # gets the user id with user id in token
             user = User.query.filter_by(id=user_id).first()
+            # changes the password of the user and adds it to the database
             user.password = generate_password_hash(new_password)
+            # commits the changes to the database
             db.session.commit()
             time = datetime.datetime.now()
             print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] NEW PASSWORD SET FOR USER_ID:{user_id}")
@@ -427,23 +448,30 @@ def change_password(token):
             return redirect(url_for('reset'))
     else: 
         if user_id != None:
+            # if the token is verified then the page which resets password is rendered
             return render_template('new_password.html')
         else :
+            # if the token verification fails then a warning is sent
             flash("The password link expired, please send the request again")
             return redirect(url_for('reset'))
 
 @socketio.on('join-video-room')
 def video_room_handler(video_room_data):
+    # gets the room from the data sent by the frontend
     room = video_room_data.split('/')[-1]
+    # adds a user to the room which corresponds to a particular meeting (which will be used to send the quizzes to all the connected participants)
     join_room(room)
     emit('joined-video-room', room)
 
 @socketio.on('quiz')
 def quiz_handler(quiz_data):
+    # gets the room to which the meeting belongs
     room = quiz_data['room']
+    # gets the link to the quiz page (posted by the professor)
     quiz_link = quiz_data['link']
     time = datetime.datetime.now()
     print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] QUIZ STARTED AT ROOM:{room}")
+    # sends the link to all the participants connected to the room
     emit('quiz', quiz_link, room=room)
 
 @app.errorhandler(404)
