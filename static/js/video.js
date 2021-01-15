@@ -23,6 +23,7 @@ function add_local_media() {
         localTracks.forEach(function(track) {
           local.appendChild(track.attach());
         });
+        local.setAttribute('id','local-media');
         local_media_container.appendChild(local);
         let local_name = document.createElement('div');
         local_name.innerHTML = 'you';
@@ -156,7 +157,7 @@ function audio_handler(){
       });
         // changes the icon of audio button to microphone-slash
         document.getElementById('audio-icon').innerHTML = '<i class="fas fa-microphone-slash fa-2x"></i>';
-        document.getElementById('local').getElementsByTagName('audio')[0].style.display = "none"; 
+        document.getElementById('local-media').getElementsByTagName('audio')[0].style.display = "none"; 
     }
     else
     {
@@ -166,7 +167,7 @@ function audio_handler(){
           });
         // changes the audio icon to microphone
         document.getElementById('audio-icon').innerHTML = '<i class="fa fa-microphone fa-2x" aria-hidden="true"></i>';
-        document.getElementById('local').getElementsByTagName('audio')[0].style.display = "block";
+        document.getElementById('local-media').getElementsByTagName('audio')[0].style.display = "block";
     }
     audio_connected = !audio_connected;
 }
@@ -181,7 +182,7 @@ function video_handler(){
         });
         // changes the video button to video-camera-slash
         document.getElementById('video-icon').innerHTML='<i class="fas fa-video-slash fa-2x"></i>';
-        document.getElementById('local').getElementsByTagName('video')[0].style.display = "none";
+        document.getElementById('local-media').getElementsByTagName('video')[0].style.display = "none";
     }
     else
     {
@@ -191,7 +192,7 @@ function video_handler(){
         });
         // changes the video button to video-camera
         document.getElementById('video-icon').innerHTML='<i  class="fa fa-video-camera fa-2x" aria-hidden="true"></i>';   
-        document.getElementById('local').getElementsByTagName('video')[0].style.display = "block";
+        document.getElementById('local-media').getElementsByTagName('video')[0].style.display = "block";
     }
     video_connected = !video_connected;
 }
