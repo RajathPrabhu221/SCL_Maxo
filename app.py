@@ -219,10 +219,15 @@ def send_reset_email(user_id, user_email):
     msg.body = f'''To reset your password, visit the following link:
 {url_for('change_password',token=token, _external=True)}'''   
     # sends the mail
-    mail.send(msg)
+    try:
+        # tries to send an email
+        mail.send(msg)
+    except:
+        # catches if there is any error in sending the mail and informs it to the user
+        return False
     time = datetime.datetime.now()
     print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] MAIL SENT TO EMAIL:{user_email}")
-    return
+    return True
 
 # gets the session id of the particular user with the id provided to the function
 @login_manager.user_loader
@@ -259,6 +264,10 @@ def signup():
         user_name = request.form.get('username')
         user_email = request.form.get('email')
         user_password = request.form.get('pass')
+        re_typed_password = request.form.get('re-pass')
+        if re_typed_password != user_password:
+            flash('Re entered password is not same as the password please try again')
+            return render_template('signup.html')
         # adds user to the database
         if add_user(user_name, user_email, user_password):
             flash('Account created please login', category='success')
@@ -415,9 +424,12 @@ def reset():
         # checks if a user with the above email is present
         if user != None:
             # if user exists, a password reset mail is sent
-            send_reset_email(user.id, user.email)
-            flash('Please check your email')
-            return render_template('password_reset.html')
+            if send_reset_email(user.id, user.email):
+                flash('Please check your email')
+                return render_template('password_reset.html')
+            else:
+                flash('Sorry we could not send the mail. Please try again!')
+                return render_template('password_reset.html')
         else:
             # if no such user exits, then a warning is sent
             flash('There is no account with that email. You must register first.')
@@ -459,7 +471,7 @@ def change_password(token):
 def video_room_handler(video_room_data):
     # gets the room from the data sent by the frontend
     room = video_room_data.split('/')[-1]
-    # adds a user to the room which corresponds to a particular meeting (which will be used to send the quizzes to all the connected participants)
+    # adds a user to the room which corresponds to a particular meeting (which will be used to send the quizz to all the connected participants)
     join_room(room)
     emit('joined-video-room', room)
 

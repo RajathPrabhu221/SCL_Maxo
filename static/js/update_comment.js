@@ -11,8 +11,12 @@ $(document).ready(function(){
     // submits the comment to the backend
     $("#comment_form").on('submit', function(e){
         e.preventDefault();
-        socket.emit('commented', $('#comment_content').val());
-        $('#comment_content').val(' ');
+        str = $('#comment_content').val();
+        if (!(!str || /^\s*$/.test(str)))
+        {
+            socket.emit('commented', $('#comment_content').val());
+            $('#comment_content').val(' ');
+        }
     });
 
     // updates the page if there are any comments from remote users
