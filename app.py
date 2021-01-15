@@ -205,12 +205,12 @@ def verify_reset_token(token):
 
 def send_reset_email(user_id, user_email):
     token = get_reset_token(user_id)
-    msg = Message('Password Reset Request', sender= app.config['MAIL_USERNAME'], recipients=[user_email])
+    time = datetime.datetime.now()
+    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] MAIL SENT TO EMAIL:{user_email}")
+    msg = Message('Password Reset Request', sender= 'ayusheer10@gmail.com', recipients=[user_email])
     msg.body = f'''To reset your password, visit the following link:
 {url_for('change_password',token=token, _external=True)}'''   
     mail.send(msg)
-    time = datetime.datetime.now()
-    print(f"127.0.0.1 - - [{time.day:02}/{time.strftime('%b')}/{time.year} {time.hour:02}:{time.minute:02}:{time.second:02}] MAIL SENT TO EMAIL:{user_email}")
     return
 
 # gets the session id of the particular user with the id provided to the function
@@ -401,7 +401,7 @@ def reset():
         if user != None:
             send_reset_email(user.id, user.email)
             flash('Please check your email')
-            return render_template('new_password.html')
+            return render_template('password_reset.html')
         else:
             flash('There is no account with that email. You must register first.')
             return render_template('password_reset.html')
