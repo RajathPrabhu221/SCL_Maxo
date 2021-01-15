@@ -13,7 +13,7 @@
   <p align="center">
    Classes made easy!
     <br />
-    <a href="#documentation"><strong>Documentation</strong></a>
+    <a href="https://ayusheer.atlassian.net/wiki/spaces/AYUSHEER/overview"><strong>Documentation</strong></a>
     <br />
     <br />
     <a href="" rel="">View a Live Demo</a>
@@ -98,8 +98,9 @@ A video conference app oriented towards better digital education. The app provid
     ```bash
     pip install -r requirements.txt
     ```
-    
-4. Create a file called .env and copy the contents from envtemplate to it.
+4. Create a folder that stores the uploaded PDFs.
+
+5. Create a file called .env and copy the contents from envtemplate to it.
    Change the config parameters
    ```dosini
    # api keys
@@ -119,7 +120,7 @@ A video conference app oriented towards better digital education. The app provid
    MAIL_PASSWORD='your mail password'
    ```
    
-5.  Execute ```python app.py ``` to start the server
+6.  Execute ```python app.py ``` to start the server
 
 ## Contribution
 
